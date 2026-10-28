@@ -1,0 +1,643 @@
+<!doctype html>
+<html lang="nl">
+<meta charset="utf-8">
+<title>Basiswortschatz Duits</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="theme-color" content="#1d3a6e">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Basiswortschatz">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<style>
+  /* Layout: één smalle kolom zoals een Karteikasten — kaart bovenop, knoppen eronder; inktblauw met een geel markeerstift-accent. */
+  :root {
+    --bg: #eef1f6; --card: #ffffff; --ink: #14213d; --muted: #5b6680; --line: #d7dde8;
+    --brand: #1d3a6e; --brand-ink: #ffffff; --mark: #ffd84d; --mark-ink: #14213d;
+    --good: #1f8a52; --good-bg: #e2f4ea; --bad: #c63a36; --bad-bg: #fbe6e5;
+    --der: #2563c9; --die: #c63a36; --das: #1f8a52;
+    --f-display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+    --f-body: "Atkinson Hyperlegible", -apple-system, "Segoe UI", Roboto, sans-serif;
+    --r: 14px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0f1522; --card: #182133; --ink: #eaf0fb; --muted: #94a0b8; --line: #2a3650;
+      --brand: #9cb8f0; --brand-ink: #0f1522; --mark: #f2cc3f; --mark-ink: #0f1522;
+      --good: #4cc584; --good-bg: #16301f; --bad: #f2716c; --bad-bg: #3a1a1a;
+      --der: #7aa8ff; --die: #ff8a85; --das: #5fd18f; color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0f1522; --card: #182133; --ink: #eaf0fb; --muted: #94a0b8; --line: #2a3650;
+    --brand: #9cb8f0; --brand-ink: #0f1522; --mark: #f2cc3f; --mark-ink: #0f1522;
+    --good: #4cc584; --good-bg: #16301f; --bad: #f2716c; --bad-bg: #3a1a1a;
+    --der: #7aa8ff; --die: #ff8a85; --das: #5fd18f; color-scheme: dark;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  [hidden] { display: none !important; }
+  body { margin: 0; }
+  html, body { background: var(--bg); color: var(--ink); }
+  body { font-family: var(--f-body); font-size: 16px; line-height: 1.45;
+    padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+    padding-block: 8px 32px; }
+  button, input { font: inherit; color: inherit; }
+  button { cursor: pointer; }
+  :focus-visible { outline: 3px solid var(--mark); outline-offset: 2px; }
+  .wrap { max-width: 560px; margin: 0 auto; display: grid; gap: 14px; }
+  h1, h2, .display { font-family: var(--f-display); text-wrap: balance; }
+
+  /* kop */
+  .head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 10px; }
+  .brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
+  .logo { width: 40px; height: 40px; border-radius: 10px; background: var(--brand); color: var(--brand-ink);
+    display: grid; place-items: center; font: 800 17px/1 var(--f-display); flex: none; }
+  h1 { font-size: 22px; font-weight: 800; margin: 0; line-height: 1.1; letter-spacing: -.01em; }
+  .sub { color: var(--muted); font-size: 13px; }
+  .pill { font-size: 13px; color: var(--muted); background: var(--card); border: 1px solid var(--line);
+    padding: 6px 10px; border-radius: 999px; white-space: nowrap; }
+
+  .panel { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 16px; display: grid; gap: 14px; }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); text-align: center; }
+  .stats b { display: block; font: 800 26px/1.1 var(--f-display); font-variant-numeric: tabular-nums; }
+  .stats span { font-size: 12px; color: var(--muted); }
+  .label { font-size: 12px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: var(--muted); margin: 0; }
+  .field { display: grid; gap: 8px; }
+  .seg { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; background: var(--bg); border-radius: 11px; padding: 4px; gap: 4px; }
+  .seg button { border: 0; background: transparent; padding: 9px 4px; border-radius: 8px; font-size: 14px; font-weight: 700; }
+  .seg button.on { background: var(--card); box-shadow: 0 1px 3px rgba(0,0,0,.14); }
+  .seg button small { display: block; font-weight: 400; font-size: 11px; color: var(--muted); }
+
+  .cats-head { display: flex; justify-content: space-between; align-items: baseline; padding: 4px 2px 0; }
+  .linkbtn { border: 0; background: none; color: var(--brand); font-weight: 700; font-size: 14px; padding: 4px; }
+  .cats { display: grid; gap: 8px; }
+  .cat { display: grid; grid-template-columns: 34px 1fr 26px; align-items: center; gap: 12px; width: 100%; text-align: left;
+    border: 1px solid var(--line); background: var(--card); border-radius: 12px; padding: 11px 12px; }
+  .cat .ic { font-size: 22px; text-align: center; }
+  .cat .nm { min-width: 0; font-weight: 700; }
+  .cat .nm .sub { font-weight: 400; }
+  .bar { height: 5px; background: var(--bg); border-radius: 9px; margin-top: 6px; overflow: hidden; }
+  .bar i { display: block; height: 100%; background: var(--good); border-radius: 9px; }
+  .check { width: 26px; height: 26px; border-radius: 8px; border: 2px solid var(--line); display: grid; place-items: center; font-weight: 800; }
+  .cat.on { border-color: var(--brand); }
+  .cat.on .check { background: var(--brand); border-color: var(--brand); color: var(--brand-ink); }
+  .group-label { margin: 8px 2px 0; }
+
+  .big { width: 100%; border: 0; background: var(--brand); color: var(--brand-ink); font: 800 18px/1 var(--f-display);
+    padding: 17px; border-radius: 13px; }
+  .big:disabled { opacity: .45; cursor: default; }
+  .ghost { width: 100%; border: 1px solid var(--line); background: var(--card); font-weight: 700; padding: 14px; border-radius: 13px; }
+  .ghost:disabled { opacity: .5; cursor: default; }
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .foot { text-align: center; font-size: 13px; color: var(--muted); }
+  .foot button { border: 0; background: none; color: var(--bad); text-decoration: underline; padding: 2px; font-size: 13px; }
+  .confirm { display: flex; gap: 8px; justify-content: center; align-items: center; flex-wrap: wrap; }
+  .confirm button { border: 1px solid var(--line); background: var(--card); border-radius: 9px; padding: 6px 12px; font-weight: 700; text-decoration: none; color: var(--ink); }
+  .confirm .danger { background: var(--bad); color: #fff; border-color: var(--bad); }
+
+  /* quiz */
+  .top { display: grid; grid-template-columns: 40px 1fr auto; align-items: center; gap: 12px; padding-top: 10px; }
+  .x { width: 40px; height: 40px; border-radius: 11px; border: 1px solid var(--line); background: var(--card); font-size: 17px; }
+  .prog { height: 10px; background: var(--card); border: 1px solid var(--line); border-radius: 9px; overflow: hidden; }
+  .prog i { display: block; height: 100%; background: var(--mark); transition: width .3s; }
+  .qcard { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 22px 18px; text-align: center;
+    display: grid; gap: 10px; justify-items: center; min-height: 190px; align-content: center; }
+  .tag { font-size: 12px; color: var(--muted); font-weight: 700; letter-spacing: .04em; }
+  .ask { font-size: 14px; color: var(--muted); }
+  .ask mark { background: var(--mark); color: var(--mark-ink); padding: 1px 6px; border-radius: 5px; font-weight: 700; }
+  .word { font: 800 30px/1.2 var(--f-display); overflow-wrap: anywhere; }
+  .word.long { font-size: 22px; }
+  .forms { font-size: 15px; color: var(--muted); }
+  .speak { border: 1px solid var(--line); background: var(--bg); border-radius: 999px; padding: 6px 14px; font-size: 14px; font-weight: 700; }
+  .art-der { color: var(--der); } .art-die { color: var(--die); } .art-das { color: var(--das); }
+
+  .opts { display: grid; gap: 10px; }
+  .opt { width: 100%; text-align: left; border: 2px solid var(--line); background: var(--card); border-radius: 13px;
+    padding: 14px 16px; font-size: 17px; font-weight: 700; overflow-wrap: anywhere; }
+  .opt.good { border-color: var(--good); background: var(--good-bg); }
+  .opt.bad { border-color: var(--bad); background: var(--bad-bg); }
+  .opt.dim { opacity: .5; }
+
+  .typebox { display: grid; gap: 10px; }
+  .typebox input { width: 100%; border: 2px solid var(--line); background: var(--card); border-radius: 13px; padding: 14px 16px; font-size: 18px; }
+  .typebox input:focus { border-color: var(--brand); outline: none; }
+  .typebox input.good { border-color: var(--good); background: var(--good-bg); }
+  .typebox input.bad { border-color: var(--bad); background: var(--bad-bg); }
+  .keys { display: flex; gap: 8px; flex-wrap: wrap; }
+  .keys button { border: 1px solid var(--line); background: var(--card); border-radius: 9px; padding: 8px 14px; font-weight: 700; font-size: 17px; }
+  .keys .grow { flex: 1; font-size: 15px; }
+
+  .flipzone { display: grid; gap: 10px; }
+  .fb { border-radius: 13px; padding: 13px 15px; font-size: 15px; }
+  .fb.good { background: var(--good-bg); color: var(--ink); border: 1px solid var(--good); }
+  .fb.bad { background: var(--bad-bg); color: var(--ink); border: 1px solid var(--bad); }
+  .fb .ans { font-weight: 700; font-size: 17px; margin-top: 4px; }
+  .fb .tip { color: var(--muted); font-size: 14px; margin-top: 6px; }
+
+  /* resultaat */
+  .score { text-align: center; padding: 26px 0 6px; display: grid; gap: 4px; }
+  .score .num { font: 800 46px/1 var(--f-display); font-variant-numeric: tabular-nums; }
+  .list { list-style: none; margin: 0; padding: 0; display: grid; }
+  .list li { display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; padding: 10px 0; border-top: 1px solid var(--line); align-items: center; }
+  .list li:first-child { border-top: 0; }
+  .list .de { font-weight: 700; min-width: 0; overflow-wrap: anywhere; }
+  .list .nl { color: var(--muted); font-size: 14px; grid-column: 1; min-width: 0; overflow-wrap: anywhere; }
+  .list .fm { color: var(--muted); font-size: 13px; grid-column: 1; }
+  .list .sp { grid-row: 1 / span 3; grid-column: 2; border: 1px solid var(--line); background: var(--bg); border-radius: 999px; width: 36px; height: 36px; }
+
+  /* woordenlijst */
+  .search { width: 100%; border: 1px solid var(--line); background: var(--card); border-radius: 12px; padding: 12px 14px; font-size: 16px; }
+  .chips { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
+  .chips button { flex: none; border: 1px solid var(--line); background: var(--card); border-radius: 999px; padding: 7px 12px; font-size: 14px; font-weight: 700; }
+  .chips button.on { background: var(--brand); color: var(--brand-ink); border-color: var(--brand); }
+  .count { font-size: 13px; color: var(--muted); }
+
+  @media (prefers-reduced-motion: reduce) { .prog i { transition: none; } }
+</style>
+
+<div class="wrap" id="app">
+
+  <!-- START -->
+  <section id="home" class="wrap">
+    <div class="head">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">DE</div>
+        <div><h1>Basiswortschatz</h1><div class="sub">Duits · woorden en zinnen</div></div>
+      </div>
+      <span class="pill" id="streak">🔥 0 dagen</span>
+    </div>
+
+    <div class="panel">
+      <div class="stats">
+        <div><b id="sKnown">0</b><span>beheerst</span></div>
+        <div><b id="sSeen">0</b><span>geoefend</span></div>
+        <div><b id="sTotal">0</b><span>totaal</span></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="field">
+        <p class="label">Manier van oefenen</p>
+        <div class="seg" id="modeSeg">
+          <button data-v="kies">Kiezen<small>meerkeuze</small></button>
+          <button data-v="typ">Typen<small>zelf schrijven</small></button>
+          <button data-v="kaart">Kaartjes<small>omdraaien</small></button>
+        </div>
+      </div>
+      <div class="field">
+        <p class="label">Richting</p>
+        <div class="seg" id="dirSeg">
+          <button data-v="de">🇩🇪 → 🇳🇱</button>
+          <button data-v="nl">🇳🇱 → 🇩🇪</button>
+          <button data-v="mix">Mix</button>
+        </div>
+      </div>
+      <div class="row2">
+        <div class="field">
+          <p class="label">Wat</p>
+          <div class="seg" id="kindSeg">
+            <button data-v="alles">Alles</button>
+            <button data-v="woord">Woorden</button>
+            <button data-v="zin">Zinnen</button>
+          </div>
+        </div>
+        <div class="field">
+          <p class="label">Aantal</p>
+          <div class="seg" id="lenSeg">
+            <button data-v="10">10</button>
+            <button data-v="20">20</button>
+            <button data-v="40">40</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cats-head">
+      <p class="label">Hoofdstukken</p>
+      <button class="linkbtn" id="allBtn">Alles aan</button>
+    </div>
+    <div class="cats" id="cats"></div>
+
+    <button class="big" id="startBtn">Start oefenen</button>
+    <div class="row2">
+      <button class="ghost" id="weakBtn">Lastige woorden</button>
+      <button class="ghost" id="listBtn">📖 Woordenlijst</button>
+    </div>
+    <div class="foot" id="foot">Je voortgang wordt op dit apparaat bewaard · <button id="resetBtn">wissen</button></div>
+  </section>
+
+  <!-- OEFENEN -->
+  <section id="quiz" class="wrap" hidden>
+    <div class="top">
+      <button class="x" id="quitBtn" aria-label="Stoppen">✕</button>
+      <div class="prog"><i id="progBar" style="width:0%"></i></div>
+      <span class="pill" id="progTxt">1/10</span>
+    </div>
+    <div class="qcard">
+      <div class="tag" id="qCat"></div>
+      <div class="ask" id="qAsk"></div>
+      <div class="word" id="qWord"></div>
+      <div class="forms" id="qForms" hidden></div>
+      <button class="speak" id="speakBtn">🔊 Uitspraak</button>
+    </div>
+    <div class="opts" id="opts"></div>
+    <form class="typebox" id="typeBox" hidden autocomplete="off">
+      <input id="typeIn" type="text" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Typ je antwoord…">
+      <div class="keys" id="keys">
+        <button type="button">ä</button><button type="button">ö</button><button type="button">ü</button><button type="button">ß</button>
+        <button type="submit" class="grow" id="checkBtn">Controleer</button>
+      </div>
+    </form>
+    <div class="flipzone" id="flipZone" hidden>
+      <button class="big" id="flipBtn" type="button">Draai om</button>
+      <div class="row2" id="judge" hidden>
+        <button class="ghost" id="noBtn" type="button">❌ Nog niet</button>
+        <button class="ghost" id="yesBtn" type="button">✅ Wist ik</button>
+      </div>
+    </div>
+    <div class="fb" id="fb" hidden></div>
+    <button class="big" id="nextBtn" hidden>Volgende</button>
+  </section>
+
+  <!-- RESULTAAT -->
+  <section id="result" class="wrap" hidden>
+    <div class="score">
+      <div id="rEmoji" style="font-size:44px"></div>
+      <div class="num" id="rScore"></div>
+      <div class="sub" id="rText"></div>
+    </div>
+    <div class="panel" id="rMistCard">
+      <p class="label">Nog even oefenen</p>
+      <ul class="list" id="rMist"></ul>
+    </div>
+    <button class="big" id="againBtn">Nog een ronde</button>
+    <button class="ghost" id="homeBtn">Terug naar start</button>
+  </section>
+
+  <!-- WOORDENLIJST -->
+  <section id="lijst" class="wrap" hidden>
+    <div class="top">
+      <button class="x" id="listBack" aria-label="Terug">←</button>
+      <h2 style="margin:0;font-size:20px">Woordenlijst</h2>
+      <span class="count" id="listCount"></span>
+    </div>
+    <input class="search" id="q" type="search" placeholder="Zoek in het Duits of Nederlands…">
+    <div class="chips" id="chips"></div>
+    <div class="panel"><ul class="list" id="listUl"></ul></div>
+  </section>
+
+</div>
+
+<script>
+const DATA = [{"id":1,"title":"Omgang met mensen","icon":"👋","items":[{"nl":"heten","de":"heißen (er hieß - er hat geheißen)","z":1},{"nl":"de vriend","de":"der Freund (die Freunde)","z":1},{"nl":"de achternaam","de":"der Familienname","z":0},{"nl":"de vriendin","de":"die Freundin (die Freundinnen)","z":1},{"nl":"de voornaam","de":"der Vorname","z":0},{"nl":"Kunt u mij helpen?","de":"Können Sie mir helfen?","z":1},{"nl":"Hoe heet u?","de":"Wie heißen Sie?","z":1},{"nl":"Ik wil graag …","de":"Ich möchte bitte …","z":1},{"nl":"de naam","de":"der Name","z":0},{"nl":"Kunt u mij een plezier doen?","de":"Könnten Sie mir einen Gefallen tun?","z":1},{"nl":"het adres","de":"die Adresse","z":0},{"nl":"Ik zou graag …","de":"Ich würde gern …","z":1},{"nl":"de woonplaats","de":"der Wohnort","z":0},{"nl":"Accoord!","de":"Einverstanden!","z":0},{"nl":"Waar woon je?","de":"Wo wohnst du?","z":1},{"nl":"Goedenmorgen","de":"Guten Morgen","z":0},{"nl":"Hij woont sinds 10 jaar in Frankrijk","de":"Er lebt seit zehn Jahren in Frankreich.","z":1},{"nl":"Goedemiddag / Goedendag","de":"Guten Tag / tussen de middag: Mahlzeit","z":1},{"nl":"de straat","de":"die Straße","z":0},{"nl":"Goedenavond","de":"Guten Abend","z":0},{"nl":"het plein","de":"der Platz","z":0},{"nl":"Hallo","de":"Hallo","z":0},{"nl":"het huisnummer","de":"die Hausnummer","z":0},{"nl":"Hoi Peter","de":"Grüß dich Peter","z":0},{"nl":"het telefoonnummer","de":"die Telefonnummer","z":0},{"nl":"Tot ziens","de":"(Auf) Wiedersehen (aan de telefoon: Auf Wiederhören)","z":1},{"nl":"Duitsland","de":"Deutschland","z":0},{"nl":"Dag!","de":"Tschüs!","z":0},{"nl":"opbellen","de":"anrufen","z":0},{"nl":"Doe de groeten aan..","de":"Viele Grüße an …","z":1},{"nl":"de verjaardag","de":"der Geburtstag","z":0},{"nl":"Hoe gaat het met je / u?","de":"Wie geht's dir / Ihnen?","z":1},{"nl":"Wanneer ben je jarig?","de":"Wann hast du Geburtstag?","z":1},{"nl":"Bedankt, goed","de":"danke, gut","z":0},{"nl":"Hoe oud bent u?","de":"Wie alt sind Sie?","z":1},{"nl":"Graag gedaan!","de":"Bitte!","z":0},{"nl":"de leeftijd","de":"das Alter","z":0},{"nl":"alstublieft - dank u wel","de":"bitte - danke","z":0},{"nl":"het jaar","de":"das Jahr (die Jahre)","z":1},{"nl":"Pas op!","de":"Vorsicht!","z":0},{"nl":"de maand","de":"der Monat (die Monate)","z":1},{"nl":"stop!","de":"halt!","z":0},{"nl":"jong - oud","de":"jung - alt","z":0},{"nl":"Heeft u zin om…?","de":"Haben Sie Lust …","z":1},{"nl":"de jongere","de":"der Jugendliche","z":0},{"nl":"Mag ik je uitnodigen.","de":"Darf ich dich einladen?","z":1},{"nl":"de volwassene","de":"der Erwachsene","z":0},{"nl":"Ja graag!","de":"Ja, gerne!","z":1},{"nl":"mannelijk","de":"männlich","z":0},{"nl":"Nee dank u","de":"Nein danke.","z":1},{"nl":"vrouwelijk","de":"weiblich","z":0},{"nl":"Hartelijk dank!","de":"Vielen Dank!","z":1},{"nl":"de man","de":"der Mann (die Männer)","z":1},{"nl":"Ik heb een idee.","de":"Ich habe eine Idee.","z":1},{"nl":"de vrouw","de":"die Frau (die Frauen)","z":1},{"nl":"Ik doe een voorstel","de":"Ich mache einen Vorschlag.","z":1},{"nl":"het kind","de":"das Kind (die Kinder)","z":1},{"nl":"Ik zou …","de":"Ich würde ….","z":1},{"nl":"de jongen","de":"der Junge (die Jungen)","z":1},{"nl":"maar natuurlijk","de":"bitte","z":0},{"nl":"het meisje","de":"das Mädchen (die Mädchen)","z":1},{"nl":"natuurlijk","de":"klar! / aber natürlich!","z":1},{"nl":"getrouwd","de":"verheiratet","z":0},{"nl":"helemaal niet","de":"überhaupt nicht","z":0},{"nl":"niet getrouwd","de":"ledig, nicht verheiratet","z":0},{"nl":"nee, liever niet","de":"nein, lieber nicht","z":0},{"nl":"We zijn nu vijf jaar getrouwd","de":"Wir sind jetzt fünf Jahre verheiratet","z":1},{"nl":"dat is aardig, maar…","de":"das ist nett, aber …","z":1},{"nl":"We zijn gisteren getrouwd","de":"Wir haben gestern geheiratet","z":1},{"nl":"nee, absoluut niet","de":"nein, auf keinen Fall","z":1},{"nl":"de familie, het gezin","de":"die Familie","z":0},{"nl":"het spijt me, maar","de":"es tut mir Leid, aber …","z":1},{"nl":"de dochter","de":"die Tochter (die Töchter)","z":1},{"nl":"Sorry!","de":"Entschuldigung!","z":0},{"nl":"de zoon","de":"der Sohn (die Söhne)","z":1},{"nl":"Dat geeft niks.","de":"Das macht nichts.","z":1},{"nl":"de oom","de":"der Onkel (die Onkel)","z":1},{"nl":"Is het mogelijk dat … ?","de":"Ist es möglich, dass …","z":1},{"nl":"de tante","de":"die Tante (die Tanten)","z":1},{"nl":"Kan ik …?","de":"Kann ich … ?","z":1},{"nl":"de vader","de":"der Vater","z":0},{"nl":"Kan dat?","de":"Geht das?","z":1},{"nl":"de moeder","de":"die Mutter","z":0},{"nl":"Ik heb nog één verzoek","de":"Ich habe noch eine Bitte","z":1},{"nl":"Heb je nog broers of zussen?","de":"Hast du noch Geschwister?","z":1},{"nl":"Mag ik aan je voorstellen? Dit is …[naam persoon]","de":"Darf ich vorstellen? Das ist …","z":1},{"nl":"de baby","de":"das Baby","z":0},{"nl":"Aangenaam!","de":"Angenehm!","z":0},{"nl":"de broer","de":"der Bruder (die Brüder)","z":1},{"nl":"Gefeliciteerd!","de":"Glückwunsch!","z":0},{"nl":"de zus","de":"die Schwester (die Schwestern)","z":1},{"nl":"Hartelijk gefeliciteerd met je verjaardag.","de":"Herzlichen Glückwunsch zum Geburtstag.","z":1},{"nl":"de (groot)ouders","de":"die (Groß)eltern","z":0},{"nl":"Beterschap!","de":"Gute Besserung!","z":1},{"nl":"een familielid","de":"ein Verwandter / eine Verwandte","z":1},{"nl":"Goede reis!","de":"Gute Reise!","z":1},{"nl":"een kennis","de":"ein Bekannter / eine Bekannte","z":1},{"nl":"Veel plezier!","de":"Viel Spaß!","z":1},{"nl":"Ze is familie van..","de":"Sie ist verwandt mit …","z":1},{"nl":"Gecondoleerd","de":"Mein Beileid","z":0}]},{"id":2,"title":"Communicatie","icon":"💬","items":[{"nl":"wat?!","de":"wie bitte?","z":1},{"nl":"verbeteren","de":"korrigieren","z":0},{"nl":"sorry?","de":"bitte?","z":0},{"nl":"in het Duits","de":"auf Deutsch","z":0},{"nl":"Kunt u dat even herhalen?","de":"Können Sie das bitte wiederholen?","z":1},{"nl":"in het Nederlands","de":"auf Niederländisch","z":0},{"nl":"Wat zei u nou net?","de":"Wie war das?","z":1},{"nl":"in het Engels","de":"auf Englisch","z":0},{"nl":"Kunt u wat langzamer praten?","de":"Könnten Sie etwas langsamer sprechen?","z":1},{"nl":"Dat wilde ik uitleggen.","de":"Das wollte ich erklären.","z":1},{"nl":"Dat ging me te snel.","de":"Das ging mir zu schnell.","z":1},{"nl":"bijvoorbeeld","de":"zum Beispiel","z":0},{"nl":"U praat zo snel.","de":"Sie sprechen so schnell.","z":1},{"nl":"enzovoorts","de":"und so weiter","z":0},{"nl":"Dat was me niet helemaal duidelijk.","de":"Das war mir nicht ganz klar.","z":1},{"nl":"overigens","de":"übrigens","z":0},{"nl":"Ik heb het niet begrepen.","de":"Ich habe es nicht verstanden.","z":1},{"nl":"dus","de":"also","z":0},{"nl":"Dat klopt!","de":"Das stimmt!","z":1},{"nl":"dat was het","de":"das war's","z":0},{"nl":"Precies!","de":"Genau!","z":0},{"nl":"het woord","de":"das Wort (die Wörter)","z":1},{"nl":"juist","de":"richtig","z":0},{"nl":"de zin","de":"der Satz (die Sätze)","z":1},{"nl":"verkeerd","de":"falsch","z":0},{"nl":"het woordenboek","de":"das Wörterbuch","z":0},{"nl":"ogenblikje a.u.b.","de":"Moment bitte…","z":0},{"nl":"een taal leren","de":"eine Sprache lernen","z":0},{"nl":"Mag ik u iets vragen?","de":"Darf ich Sie etwas fragen?","z":1},{"nl":"een vreemde taal leren","de":"eine Fremdsprache lernen","z":0},{"nl":"spellen","de":"buchstabieren","z":0},{"nl":"begrijpen, verstaan","de":"verstehen","z":0},{"nl":"Hoe schrijf je dat?","de":"Wie schreibt man das?","z":1},{"nl":"spreken","de":"sprechen","z":0},{"nl":"Hoe spreek je dat uit?","de":"Wie spricht man das aus?","z":1},{"nl":"lezen","de":"lesen","z":0},{"nl":"Hoe zeg je dat in het Duits?","de":"Wie sagt man das auf Deutsch?","z":1},{"nl":"schrijven","de":"schreiben","z":0},{"nl":"Hoe heet dat ding?","de":"Wie heißt das Ding?","z":1},{"nl":"mijn uitspraak","de":"meine Aussprache","z":0},{"nl":"begrijpen","de":"verstehen (er verstand - hat verstanden)","z":1},{"nl":"vloeiend","de":"fließend","z":0},{"nl":"Heb ik u nu goed begrepen?","de":"Habe ich Sie jetzt richtig verstanden?","z":1},{"nl":"veel fouten","de":"viele Fehler","z":0},{"nl":"aha!","de":"ach so!","z":1},{"nl":"Hoe bedoelt u dat?","de":"Wie meinen Sie das?","z":1},{"nl":"Wat betekent … ?","de":"Was heißt …. ?","z":1},{"nl":"Ik bedoel…","de":"Ich meine …","z":0},{"nl":"Kunt u mij zeggen, hoe…","de":"Können Sie mir sagen, wie …","z":1},{"nl":"met andere woorden","de":"mit anderen Worten","z":0},{"nl":"vertalen","de":"übersetzen","z":0},{"nl":"nou ja, …","de":"also, …","z":0},{"nl":"de vertaling","de":"die Übersetzung","z":0},{"nl":"Dat denk ik ook.","de":"Das glaube ich auch!","z":1}]},{"id":3,"title":"Wonen, omgeving, natuur & weer","icon":"🏡","items":[{"nl":"het huis","de":"das Haus (die Häuser)","z":1},{"nl":"wassen","de":"waschen (er wusch - hat gewaschen)","z":1},{"nl":"het gebouw","de":"das Gebäude (die Gebäude)","z":1},{"nl":"de vuilnisemmer","de":"der Mülleimer","z":0},{"nl":"de flat","de":"das Hochhaus","z":0},{"nl":"weggooien","de":"wegwerfen (er warf weg - hat weggeworfen)","z":1},{"nl":"de kamer","de":"das Zimmer (die Zimmer)","z":1},{"nl":"de overnachting","de":"die Übernachtung","z":0},{"nl":"huren","de":"mieten (er mietete - hat gemietet)","z":1},{"nl":"het hotel","de":"das Hotel","z":0},{"nl":"kopen","de":"kaufen (er kaufte - hat gekauft)","z":1},{"nl":"de camping","de":"der Campingplatz","z":0},{"nl":"thuis zijn","de":"zu Hause sein","z":0},{"nl":"de tent","de":"das Zelt","z":0},{"nl":"naar huis gaan","de":"nach Hause fahren","z":0},{"nl":"reserveren","de":"reservieren","z":0},{"nl":"de woonkamer","de":"das Wohnzimmer","z":0},{"nl":"de receptie","de":"die Rezeption","z":0},{"nl":"de slaapkamer","de":"das Schlafzimmer","z":0},{"nl":"het ontbijt","de":"das Frühstück","z":0},{"nl":"de keuken","de":"die Küche","z":0},{"nl":"volpension","de":"Vollpension","z":0},{"nl":"de douche","de":"die Dusche","z":0},{"nl":"de stad","de":"die Stadt (die Städte)","z":1},{"nl":"de badkamer","de":"das Bad","z":0},{"nl":"het dorp","de":"das Dorf (die Dörfer)","z":1},{"nl":"het toilet","de":"die Toilette","z":0},{"nl":"de wijk","de":"das Viertel","z":0},{"nl":"de deur","de":"die Tür (die Türen)","z":1},{"nl":"op het platteland","de":"auf dem Land","z":0},{"nl":"kloppen","de":"klopfen","z":0},{"nl":"de woonplaats","de":"der Ort","z":0},{"nl":"aanbellen","de":"klingeln","z":0},{"nl":"het raam","de":"das Fenster (die Fenster)","z":1},{"nl":"de deur dichtdoen","de":"die Tür schließen","z":0},{"nl":"het raam opendoen","de":"das Fenster aufmachen","z":0},{"nl":"de sleutel","de":"der Schlüssel (die Schlüssel)","z":1},{"nl":"de muur","de":"die Wand (die Wände)","z":1},{"nl":"de grond","de":"der Boden","z":0},{"nl":"meubels","de":"Möbel","z":0},{"nl":"het plafond","de":"die Decke","z":0},{"nl":"de tafel","de":"der Tisch","z":0},{"nl":"het dak","de":"das Dach","z":0},{"nl":"de stoel","de":"der Stuhl (die Stühle)","z":1},{"nl":"de trap","de":"die Treppe","z":0},{"nl":"de kast","de":"der Schrank","z":0},{"nl":"de gang","de":"der Flur","z":0},{"nl":"het tapijt","de":"der Teppich","z":0},{"nl":"de lift","de":"der Aufzug","z":0},{"nl":"het bed","de":"das Bett","z":0},{"nl":"de verdieping","de":"der Stock","z":0},{"nl":"het kussen","de":"das Kissen","z":0},{"nl":"op de 3e verdieping","de":"im 3. Stock","z":0},{"nl":"de verwarming","de":"die Heizung","z":0},{"nl":"de kelder","de":"der Keller","z":0},{"nl":"de lamp","de":"die Lampe","z":0},{"nl":"het balkon","de":"der Balkon","z":0},{"nl":"het licht aan/uitdoen","de":"das Licht anmachen / ausmachen","z":1},{"nl":"het terras","de":"die Terrasse","z":0},{"nl":"de telefoon","de":"das Telefon","z":0},{"nl":"de tuin","de":"der Garten","z":0},{"nl":"de telefoon gaat","de":"das Telefon klingelt","z":0},{"nl":"de garage","de":"die Garage","z":0},{"nl":"de koelkast","de":"der Kühlschrank","z":0},{"nl":"koken","de":"kochen (er kochte - hat gekocht)","z":1},{"nl":"schoonmaken","de":"sauber machen (er machte sauber - hat sauber gemacht)","z":1},{"nl":"de omgeving, de streek","de":"die Gegend","z":0},{"nl":"het dier","de":"das Tier (die Tiere)","z":1},{"nl":"het bos","de":"der Wald (die Wälder)","z":1},{"nl":"het weer","de":"das Wetter","z":0},{"nl":"het meer","de":"der See","z":0},{"nl":"warm - koud","de":"heiß - kalt","z":0},{"nl":"de zee","de":"das Meer / die See","z":1},{"nl":"droog - nat","de":"trocken - nass","z":0},{"nl":"de rivier","de":"der Fluss","z":0},{"nl":"de zon","de":"die Sonne","z":0},{"nl":"het eiland","de":"die Insel","z":0},{"nl":"het regent","de":"es regnet","z":0},{"nl":"het strand","de":"der Strand","z":0},{"nl":"het sneeuwt","de":"es schneit","z":0},{"nl":"de berg","de":"der Berg","z":0},{"nl":"het vriest","de":"es friert","z":0},{"nl":"stijl - vlak","de":"steil - flach","z":0},{"nl":"ijzel","de":"Glatteis","z":0},{"nl":"de plant","de":"die Pflanze (die Pflanzen)","z":1},{"nl":"het postkantoor","de":"das Postamt","z":0},{"nl":"de boom","de":"der Baum (die Bäume)","z":1},{"nl":"de brievenbus","de":"der Briefkasten","z":0},{"nl":"de bank","de":"die Bank","z":0},{"nl":"de telefooncel","de":"die Telefonzelle","z":0},{"nl":"de geldautomaat","de":"der Geldautomat","z":0},{"nl":"de politie","de":"die Polizei","z":0},{"nl":"de garage","de":"die Werkstatt","z":0},{"nl":"het politiebureau","de":"die Polizeiwache","z":0},{"nl":"Ik heb pech (onderweg)","de":"Ich habe eine Panne","z":1},{"nl":"het ziekenhuis","de":"das Krankenhaus","z":0},{"nl":"de rem","de":"die Bremse","z":0},{"nl":"de brandweer","de":"die Feuerwehr","z":0},{"nl":"het wiel","de":"das Rad","z":0},{"nl":"het tankstation","de":"die Tankstelle","z":0}]},{"id":4,"title":"Verkeer, reizen & vakantie","icon":"🚆","items":[{"nl":"de kaart","de":"die Karte","z":0},{"nl":"wandelen","de":"spazieren","z":0},{"nl":"de stadsplattegrond","de":"der Stadtplan","z":0},{"nl":"fietsen","de":"Rad fahren","z":0},{"nl":"het centrum","de":"die Innenstadt","z":0},{"nl":"surfen","de":"surfen","z":0},{"nl":"hier ergens","de":"hier irgendwo","z":0},{"nl":"skiën","de":"Ski fahren","z":0},{"nl":"Ik ben hier onbekend.","de":"Ich bin fremd hier.","z":1},{"nl":"het museum","de":"das Museum","z":0},{"nl":"Ik zoek ..","de":"Ich suche …","z":0},{"nl":"de dierentuin","de":"der Zoo","z":0},{"nl":"laten zien","de":"zeigen (er zeigte - hat gezeigt)","z":1},{"nl":"het attractiepark","de":"der Vergnügungspark","z":0},{"nl":"rijden, varen","de":"fahren (er fuhr - er ist gefahren)","z":1},{"nl":"het buitenland","de":"das Ausland","z":0},{"nl":"afslaan","de":"abbiegen","z":0},{"nl":"de toerist","de":"der Tourist","z":0},{"nl":"de hoek","de":"die Ecke","z":0},{"nl":"de VVV","de":"das Verkehrsamt","z":0},{"nl":"de bocht","de":"die Kurve","z":0},{"nl":"het reisbureau","de":"das Reisebüro","z":0},{"nl":"de brug","de":"die Brücke","z":0},{"nl":"alles in één prijs","de":"der Pauschalpreis","z":0},{"nl":"de volgende straat rechts","de":"die nächste Straße rechts","z":1},{"nl":"de folder","de":"der Prospekt (die Prospekte)","z":1},{"nl":"bij het stoplicht","de":"an der Ampel","z":0},{"nl":"het paspoort","de":"der Pass","z":0},{"nl":"rechtdoor","de":"geradeaus","z":0},{"nl":"de papieren","de":"die Papiere","z":0},{"nl":"Gaat u bij de kruising rechtdoor","de":"Fahren Sie über die Kreuzung","z":1},{"nl":"de verzekering","de":"die Versicherung","z":0},{"nl":"oversteken","de":"überqueren","z":0},{"nl":"de reisgids","de":"der Reiseführer","z":0},{"nl":"heen - terug","de":"hin - zurück","z":0},{"nl":"de rondvaart","de":"die Rundfahrt","z":0},{"nl":"Daar is het.","de":"Da ist es.","z":1},{"nl":"de chauffeur","de":"der Fahrer","z":0},{"nl":"Ik ben verdwaald.","de":"Ich habe mich verirrt.","z":1},{"nl":"instappen - uitstappen","de":"einsteigen - aussteigen","z":0},{"nl":"de verkeerde kant op rijden","de":"in die falsche Richtung fahren","z":1},{"nl":"overstappen","de":"umsteigen","z":0},{"nl":"het verkeer","de":"der Verkehr","z":0},{"nl":"de fiets","de":"das Fahrrad","z":0},{"nl":"de snelweg","de":"die Autobahn","z":0},{"nl":"de brommer","de":"das Moped","z":0},{"nl":"eenrichtingverkeer","de":"die Einbahnstraße","z":0},{"nl":"de scooter","de":"der Roller","z":0},{"nl":"de afrit","de":"die Ausfahrt","z":0},{"nl":"de vrachtauto","de":"der LKW","z":0},{"nl":"te voet","de":"zu Fuß","z":0},{"nl":"de tram","de":"die Straßenbahn","z":0},{"nl":"het trottoir","de":"das Trottoir","z":0},{"nl":"de bus","de":"der Bus","z":0},{"nl":"de bus nemen","de":"den Bus nehmen","z":0},{"nl":"de halte","de":"die Haltestelle","z":0},{"nl":"voor - achter","de":"vor - hinter","z":0},{"nl":"de taxi","de":"das Taxi","z":0},{"nl":"in de buurt van","de":"in der Nähe von","z":1},{"nl":"naar de Poststraße a.u.b.","de":"zur Poststraße bitte","z":0},{"nl":"de auto","de":"das Auto","z":0},{"nl":"het vliegtuig","de":"das Flugzeug","z":0},{"nl":"parkeren","de":"parken","z":0},{"nl":"het vliegveld","de":"der Flughafen","z":0},{"nl":"de parkeergarage","de":"das Parkhaus","z":0},{"nl":"het schip","de":"das Schiff","z":0},{"nl":"de trein","de":"der Zug","z":0},{"nl":"de haven","de":"der Hafen","z":0},{"nl":"de spoorwegen","de":"die Bahn","z":0},{"nl":"informatie","de":"Auskunft","z":0},{"nl":"het kaartje","de":"die Fahrkarte","z":0},{"nl":"roken - niet roken","de":"Raucher - Nichtraucher","z":0},{"nl":"enkeltje","de":"einfache Fahrt","z":0},{"nl":"de koffer","de":"der Koffer","z":0},{"nl":"retour","de":"hin und zurück","z":0},{"nl":"de bagage","de":"das Gepäck","z":0},{"nl":"met de trein rijden","de":"mit dem Zug fahren","z":1},{"nl":"de bagagekluis","de":"das Schließfach","z":0},{"nl":"het station","de":"der Bahnhof","z":0},{"nl":"de tas","de":"die Tasche","z":0},{"nl":"de trein stopt in Berlijn","de":"der Zug hält in Berlin","z":1},{"nl":"de plastic tas","de":"die Tüte","z":0},{"nl":"spoor 8","de":"Gleis 8","z":0},{"nl":"de rugzak","de":"der Rucksack","z":0},{"nl":"de vertraging","de":"die Verspätung","z":0},{"nl":"op vakantie gaan","de":"in Urlaub fahren","z":0},{"nl":"de file","de":"der Stau","z":0},{"nl":"een reis boeken","de":"eine Reise buchen (er buchte - er hat gebucht)","z":1},{"nl":"het ongeluk","de":"der Unfall","z":0},{"nl":"de omgeving","de":"die Umgebung","z":0},{"nl":"de wegomleiding","de":"die Umleitung","z":0},{"nl":"het hoogseizoen","de":"die Hochsaison","z":0},{"nl":"de reis","de":"die Reise","z":0},{"nl":"Dan zijn we weg.","de":"Dann sind wir verreist.","z":1},{"nl":"een uitstapje doen","de":"einen Ausflug machen","z":0},{"nl":"onderweg","de":"unterwegs","z":0},{"nl":"de wandeltocht","de":"die Wanderung","z":0},{"nl":"de aankomst","de":"die Ankunft","z":0},{"nl":"een wandeling","de":"der Spaziergang","z":0},{"nl":"het vertrek","de":"die Abreise","z":0}]},{"id":5,"title":"Eten & drinken","icon":"🍽️","items":[{"nl":"eten","de":"essen (er aß - hat gegessen)","z":1},{"nl":"vet","de":"fett","z":0},{"nl":"drinken","de":"trinken (er trank - hat getrunken)","z":1},{"nl":"vers","de":"frisch","z":0},{"nl":"honger","de":"Hunger","z":0},{"nl":"krokant","de":"knusprig","z":0},{"nl":"dorst","de":"Durst","z":0},{"nl":"suiker","de":"Zucker","z":0},{"nl":"iets proeven","de":"etwas kosten","z":0},{"nl":"melk","de":"Milch","z":0},{"nl":"koken","de":"kochen (er kochte - hat gekocht)","z":1},{"nl":"boter","de":"Butter","z":0},{"nl":"koffie zetten","de":"Kaffee machen","z":0},{"nl":"slagroom","de":"Sahne","z":0},{"nl":"een snack","de":"ein Imbiss","z":0},{"nl":"kaas","de":"Käse","z":0},{"nl":"de warme maaltijd","de":"die warme Mahlzeit","z":0},{"nl":"jam","de":"Marmelade","z":0},{"nl":"het ontbijt","de":"das Frühstück","z":0},{"nl":"fruit","de":"Obst","z":0},{"nl":"eet smakelijk!","de":"Guten Appetit!","z":1},{"nl":"aardbeien","de":"Erdbeeren","z":0},{"nl":"proost!","de":"zum Wohl!","z":1},{"nl":"sinaasappels","de":"Orangen","z":0},{"nl":"het voorgerecht","de":"die Vorspeise","z":0},{"nl":"de appel","de":"der Apfel (die Äpfel)","z":1},{"nl":"de soep","de":"die Suppe","z":0},{"nl":"de banaan","de":"die Banane","z":0},{"nl":"Ik houd niet van soep.","de":"Ich mag keine Suppe.","z":1},{"nl":"perziken","de":"Pfirsiche","z":0},{"nl":"het dessert","de":"der Nachtisch","z":0},{"nl":"ananas","de":"Ananas","z":0},{"nl":"gekookt","de":"gekocht","z":0},{"nl":"citroen","de":"Zitrone","z":0},{"nl":"gebraden","de":"gebraten","z":0},{"nl":"peren","de":"Birnen","z":0},{"nl":"gebakken","de":"gebacken","z":0},{"nl":"kersen","de":"Kirschen","z":0},{"nl":"gegrilld","de":"gegrillt","z":0},{"nl":"chocolade","de":"Schokolade","z":0},{"nl":"gefrituurd","de":"frittiert","z":0},{"nl":"vruchten","de":"Früchte","z":0},{"nl":"het ei","de":"das Ei","z":0},{"nl":"ijs","de":"Eis","z":0},{"nl":"de vis","de":"der Fisch","z":0},{"nl":"een portie","de":"eine Portion","z":0},{"nl":"de kip","de":"das Huhn","z":0},{"nl":"een stuk taart","de":"ein Stück Kuchen","z":0},{"nl":"kipfilet","de":"Hühnerbrust","z":0},{"nl":"een koekje","de":"ein Keks","z":0},{"nl":"rundvlees","de":"Rindfleisch","z":0},{"nl":"een blikje","de":"eine Dose","z":0},{"nl":"varkensvlees","de":"Schweinefleisch","z":0},{"nl":"een fles","de":"eine Flasche","z":0},{"nl":"vegetarisch","de":"vegetarisch","z":0},{"nl":"een glas","de":"ein Glas","z":0},{"nl":"ham","de":"Schinken","z":0},{"nl":"dranken","de":"Getränke","z":0},{"nl":"worst","de":"Wurst","z":0},{"nl":"een bronwater","de":"ein Mineralwasser","z":0},{"nl":"salade","de":"Salat","z":0},{"nl":"limonade","de":"Limonade","z":0},{"nl":"groente","de":"Gemüse","z":0},{"nl":"een cola","de":"eine Cola","z":0},{"nl":"aardappelen","de":"Kartoffel","z":0},{"nl":"sap","de":"Saft","z":0},{"nl":"spinazie","de":"Spinat","z":0},{"nl":"sinaasappelsap","de":"Orangensaft","z":0},{"nl":"kool","de":"Kohl","z":0},{"nl":"Een kop thee graag!","de":"Eine Tasse Tee bitte!","z":1},{"nl":"bloemkool","de":"Blumenkohl","z":0},{"nl":"wijn","de":"Wein","z":0},{"nl":"de saus","de":"die Soße","z":0},{"nl":"bier","de":"Bier","z":0},{"nl":"champignons","de":"Champignons","z":0},{"nl":"licht - donker","de":"hell - dunkel","z":0},{"nl":"het brood","de":"das Brot","z":0},{"nl":"een borrel","de":"ein Korn","z":0},{"nl":"broodjes","de":"Brötchen","z":0},{"nl":"uit eten gaan","de":"essen gehen","z":0},{"nl":"pasta","de":"Nudeln","z":0},{"nl":"het restaurant","de":"das Restaurant","z":0},{"nl":"rijst","de":"Reis","z":0},{"nl":"het café","de":"die Kneipe","z":0},{"nl":"peper en zout","de":"Pfeffer und Salz","z":0},{"nl":"de lunchroom","de":"das Café","z":0},{"nl":"gekruid","de":"gewürzt","z":0},{"nl":"een tafel reserveren","de":"einen Tisch reservieren","z":0},{"nl":"mosterd","de":"Senf","z":0},{"nl":"iets bestellen","de":"etwas bestellen","z":0},{"nl":"olie","de":"Öl","z":0},{"nl":"Het smaakt goed - slecht","de":"Es schmeckt gut - schlecht","z":1},{"nl":"azijn","de":"Essig","z":0},{"nl":"ober!","de":"Herr Ober!","z":1},{"nl":"scherp","de":"scharf","z":0},{"nl":"mevrouw!","de":"Fräulein!","z":0},{"nl":"zoet - zuur","de":"süß - sauer","z":0},{"nl":"Ik wil graag afrekenen.","de":"Ich möchte bitte bezahlen.","z":1},{"nl":"bitter","de":"bitter","z":0},{"nl":"(als je het wisselgeld als fooi wilt geven)","de":"Stimmt so!","z":1}]},{"id":6,"title":"Inkopen doen","icon":"🛒","items":[{"nl":"de winkel","de":"der Laden","z":0},{"nl":"de portemonnaie","de":"die Brieftasche / das Portemonnaie","z":1},{"nl":"de supermarkt","de":"der Supermarkt","z":0},{"nl":"het horloge","de":"die Uhr","z":0},{"nl":"het warenhuis","de":"das Kaufhaus","z":0},{"nl":"sierad","de":"Schmuck","z":0},{"nl":"de roltrap","de":"die Rolltreppe","z":0},{"nl":"de maat","de":"die Größe","z":0},{"nl":"de afdeling","de":"die Abteilung","z":0},{"nl":"katoen","de":"Baumwolle","z":0},{"nl":"de speciaalzaak","de":"das Fachgeschäft","z":0},{"nl":"wol","de":"Wolle","z":0},{"nl":"de boekwinkel","de":"die Buchhandlung","z":0},{"nl":"passen","de":"anprobieren","z":0},{"nl":"de platenzaak","de":"der Musikladen","z":0},{"nl":"aantrekken - uittrekken","de":"anziehen - ausziehen","z":0},{"nl":"de bakker","de":"der Bäcker","z":0},{"nl":"zich omkleden","de":"sich umziehen","z":0},{"nl":"de slager","de":"der Metzger / der Fleischer","z":1},{"nl":"mooi","de":"schön","z":0},{"nl":"de kapper","de":"der Friseur","z":0},{"nl":"knap","de":"hübsch","z":0},{"nl":"de markt","de":"der Markt","z":0},{"nl":"lelijk","de":"hässlich","z":0},{"nl":"de verkoper","de":"der Verkäufer","z":0},{"nl":"sigaretten","de":"Zigaretten","z":0},{"nl":"de verkoopster","de":"die Verkäuferin","z":0},{"nl":"Heb je een vuurtje?","de":"Hast du Feuer?","z":1},{"nl":"boodschappen doen","de":"einkaufen gehen","z":0},{"nl":"asbak","de":"Aschenbecher","z":0},{"nl":"kopen","de":"kaufen (er kaufte - hat gekauft)","z":1},{"nl":"servies","de":"Geschirr","z":0},{"nl":"inpakken","de":"einpacken","z":0},{"nl":"het servet","de":"die Serviette","z":0},{"nl":"aan de beurt","de":"an der Reihe","z":0},{"nl":"het bord","de":"der Teller","z":0},{"nl":"ruilen","de":"umtauschen","z":0},{"nl":"het glas","de":"das Glas","z":0},{"nl":"garantie","de":"Garantie","z":0},{"nl":"de beker","de":"der Becher","z":0},{"nl":"Waar vind ik … ?","de":"Wo finde ich … ?","z":1},{"nl":"de vork","de":"die Gabel","z":0},{"nl":"Ik wil graag …","de":"Ich hätte gern …","z":1},{"nl":"het mes","de":"das Messer","z":0},{"nl":"Hoeveel kost dit?","de":"Wie viel kostet das?","z":1},{"nl":"de lepel","de":"der Löffel","z":0},{"nl":"Hoeveel is het bij elkaar?","de":"Was macht das?","z":1},{"nl":"de pan","de":"der Topf","z":0},{"nl":"Een ijsje van 1 Euro","de":"Ein Eis zu 1 Euro","z":1},{"nl":"de koekenpan","de":"die Pfanne","z":0},{"nl":"duur - goedkoop","de":"teuer - billig","z":0},{"nl":"de schotel","de":"die Schüssel","z":0},{"nl":"gratis","de":"gratis, umsonst","z":0},{"nl":"de emmer","de":"der Eimer","z":0},{"nl":"de kassa","de":"die Kasse","z":0},{"nl":"gereedschap","de":"Werkzeug","z":0},{"nl":"wisselen","de":"wechseln","z":0},{"nl":"de schroef","de":"die Schraube","z":0},{"nl":"betalen","de":"bezahlen","z":0},{"nl":"het stopcontact","de":"die Steckdose","z":0},{"nl":"de kassabon","de":"der Kassenzettel","z":0},{"nl":"de stekker","de":"der Stecker","z":0},{"nl":"de kwitantie","de":"die Quittung","z":0},{"nl":"de lamp","de":"die Lampe","z":0},{"nl":"de ingang","de":"der Eingang","z":0},{"nl":"de batterij","de":"die Batterie","z":0},{"nl":"de uitgang","de":"der Ausgang","z":0},{"nl":"de bril","de":"die Brille","z":0},{"nl":"kleding","de":"Kleider / Kleidung","z":0},{"nl":"de camera","de":"die Kamera","z":0},{"nl":"de broek","de":"die Hose","z":0},{"nl":"het fotorolletje","de":"der Film","z":0},{"nl":"het overhemd","de":"das Hemd","z":0},{"nl":"de CD","de":"die CD","z":0},{"nl":"de trui","de":"der Pullover","z":0},{"nl":"het tijdschrift","de":"die Zeitschrift","z":0},{"nl":"de jurk","de":"das Kleid","z":0},{"nl":"de krant","de":"die Zeitung","z":0},{"nl":"het jack","de":"die Jacke","z":0},{"nl":"het boek","de":"das Buch (die Bücher)","z":1},{"nl":"de lange jas","de":"der Mantel","z":0},{"nl":"de poster","de":"das Poster","z":0},{"nl":"het T-shirt","de":"das T-Shirt","z":0},{"nl":"de pen","de":"der Kugelschreiber","z":0},{"nl":"ondergoed","de":"Wäsche","z":0},{"nl":"het potlood","de":"der Bleistift","z":0},{"nl":"sokken","de":"Strümpfe","z":0},{"nl":"een blaadje","de":"ein Blatt Papier","z":0},{"nl":"een paar handschoenen","de":"ein Paar Handschuhe","z":0},{"nl":"een notitieblok","de":"ein Notizblock","z":0},{"nl":"schoenen","de":"Schuhe","z":0},{"nl":"postzegels","de":"Briefmarken","z":0},{"nl":"de muts","de":"die Mütze","z":0},{"nl":"een kaart sturen","de":"eine Karte schicken","z":0},{"nl":"de paraplu","de":"der Schirm","z":0},{"nl":"een cadeau","de":"ein Geschenk","z":0},{"nl":"de tas","de":"die Tasche","z":0},{"nl":"een waardebon","de":"ein Gutschein","z":0},{"nl":"plastic tasje","de":"eine Tüte","z":0},{"nl":"klantenservice","de":"Kundendienst","z":0}]},{"id":7,"title":"Lichaam & gezondheid","icon":"🩺","items":[{"nl":"het lichaam","de":"der Körper","z":0},{"nl":"verkoudheid","de":"Erkältung","z":0},{"nl":"het gezicht","de":"das Gesicht","z":0},{"nl":"hoesten","de":"husten","z":0},{"nl":"de nek","de":"der Hals","z":0},{"nl":"lichamelijke klachten","de":"körperliche Beschwerden","z":0},{"nl":"de rug","de":"der Rücken","z":0},{"nl":"gewond","de":"verletzt","z":0},{"nl":"de buik","de":"der Bauch","z":0},{"nl":"een ontsteking","de":"eine Entzündung","z":0},{"nl":"de maag","de":"der Magen","z":0},{"nl":"bloeden","de":"bluten","z":0},{"nl":"de arm","de":"der Arm (die Arme)","z":1},{"nl":"bloed","de":"Blut","z":0},{"nl":"de hand","de":"die Hand (die Hände)","z":1},{"nl":"zich verbranden","de":"sich verbrennen (er verbrannte sich - hat sich verbrannt)","z":1},{"nl":"de vinger","de":"der Finger (die Finger)","z":1},{"nl":"Ik heb mijn been gebroken.","de":"Ich habe mir das Bein gebrochen.","z":1},{"nl":"het been","de":"das Bein (die Beine)","z":1},{"nl":"Ik me gesneden.","de":"Ich habe mich geschnitten.","z":1},{"nl":"de voet","de":"der Fuß (die Füße)","z":1},{"nl":"vallen","de":"stürzen (stürzte - gestürzt)","z":1},{"nl":"het oog","de":"das Auge (die Augen)","z":1},{"nl":"de operatie","de":"die Operation","z":0},{"nl":"de neus","de":"die Nase","z":0},{"nl":"leven - sterben","de":"leben - sterben","z":0},{"nl":"de mond","de":"der Mund","z":0},{"nl":"erg - niet erg","de":"schlimm - nicht schlimm","z":1},{"nl":"het oor","de":"das Ohr (die Ohren)","z":1},{"nl":"beterschap!","de":"Gute Besserung!","z":1},{"nl":"de tand","de":"der Zahn (die Zähne)","z":1},{"nl":"de dokter","de":"der Arzt (die Ärzte)","z":1},{"nl":"het hart","de":"das Herz","z":0},{"nl":"de specialist","de":"der Spezialist","z":0},{"nl":"Ik heb het koud / warm.","de":"Mir ist kalt / warm.","z":1},{"nl":"naar dokter gaan","de":"zum Arzt gehen","z":0},{"nl":"zweten","de":"schwitzen","z":0},{"nl":"de patiënt","de":"der Patient","z":0},{"nl":"moe","de":"müde","z":0},{"nl":"het spreekuur","de":"die Sprechstunde","z":0},{"nl":"zenuwachtig","de":"nervös","z":0},{"nl":"de apotheek","de":"die Apotheke","z":0},{"nl":"slapen","de":"schlafen (er schlief - hat geschlafen)","z":1},{"nl":"de drogist","de":"die Drogerie","z":0},{"nl":"wakker worden","de":"aufwachen (er wachte auf - ist aufgewacht)","z":1},{"nl":"het medicijn","de":"das Medikament","z":0},{"nl":"naar bed gaan","de":"ins Bett gehen","z":0},{"nl":"de pil","de":"die Pille","z":0},{"nl":"uitrusten","de":"sich erholen (er erholte sich- hat sich erholt)","z":1},{"nl":"de zalf","de":"die Salbe","z":0},{"nl":"sterk - zwak","de":"stark - schwach","z":0},{"nl":"de pleister","de":"das Pflaster","z":0},{"nl":"Hoe gaat het met je?","de":"Wie geht's dir?","z":1},{"nl":"het ziekenfonds","de":"die Krankenkasse","z":0},{"nl":"Met mij gaat het goed","de":"Mir geht's gut","z":0},{"nl":"de verzekering","de":"die Versicherung","z":0},{"nl":"zwanger","de":"schwanger","z":0},{"nl":"particulier","de":"privat","z":0},{"nl":"zich wassen","de":"sich waschen","z":0},{"nl":"zien","de":"sehen (er sah - hat gesehen)","z":1},{"nl":"zeep","de":"Seife","z":0},{"nl":"horen","de":"hören (er hörte - hat gehört)","z":1},{"nl":"de handdoek","de":"das Handtuch (die Handtücher)","z":1},{"nl":"voelen","de":"fühlen (er fühlte - hat gefühlt)","z":1},{"nl":"zich douchen","de":"sich duschen","z":0},{"nl":"aanraken","de":"berühren (er berührte - hat berührt)","z":1},{"nl":"schoon - vuil","de":"sauber - schmutzig","z":0},{"nl":"ruiken","de":"riechen (er roch - hat gerochen)","z":1},{"nl":"tanden poetsen","de":"sich die Zähne putzen","z":1},{"nl":"staan","de":"stehen (er stand - hat gestanden)","z":1},{"nl":"tandpasta","de":"Zahnpasta","z":0},{"nl":"zitten","de":"sitzen (er saß - hat gesessen)","z":1},{"nl":"tandenborstel","de":"Zahnbürste","z":0},{"nl":"lopen","de":"gehen (er ging - ist gegangen)","z":1},{"nl":"de kam","de":"der Kamm","z":0},{"nl":"liggen","de":"liegen (er lag - hat gelegen)","z":1},{"nl":"de schaar","de":"die Schere","z":0},{"nl":"gaan liggen","de":"sich hinlegen (er legte sich hin - hatsich hingelegt)","z":1},{"nl":"zich scheren","de":"sich rasieren","z":0},{"nl":"springen","de":"springen (er sprang - hat gesprungen)","z":1},{"nl":"gezond - ziek","de":"gesund - krank","z":0},{"nl":"rennen","de":"laufen, rennen","z":0},{"nl":"de ziekte","de":"die Krankheit","z":0},{"nl":"doen","de":"machen, tun","z":0},{"nl":"de gezondheid","de":"die Gesundheit","z":0},{"nl":"duwen - trekken","de":"schieben - ziehen","z":0},{"nl":"Het gaat beter met hem.","de":"Es geht ihm besser.","z":1},{"nl":"draaien","de":"drehen (er drehte - hat gedreht)","z":1},{"nl":"er goed / slecht uit zien","de":"gut / schlecht aussehen","z":1},{"nl":"vasthouden","de":"halten (er hielt - hat gehalten)","z":1},{"nl":"bleek","de":"blass","z":0},{"nl":"geven","de":"geben (er gab - hat gegeben)","z":1},{"nl":"Ik voel me misselijk","de":"Mir ist schlecht","z":0},{"nl":"dragen","de":"tragen (er trug - hat getragen)","z":1},{"nl":"overgeven","de":"erbrechen","z":0},{"nl":"gooien","de":"werfen (er warf - hat geworfen)","z":1},{"nl":"koorts","de":"Fieber","z":0},{"nl":"buigen","de":"biegen (er bog - hat gebogen)","z":1},{"nl":"griep","de":"Grippe","z":0},{"nl":"pakken","de":"nehmen (er nahm - hat genommen)","z":1}]},{"id":8,"title":"Plaats, tijd & hoeveelheid","icon":"🕒","items":[{"nl":"er is/zijn","de":"es gibt","z":0},{"nl":"de namiddag","de":"der Nachmittag","z":0},{"nl":"Er is hier ook een supermarkt.","de":"Es gibt hier auch einen Supermarkt.","z":1},{"nl":"de avond","de":"der Abend (die Abende)","z":1},{"nl":"Hij is er niet.","de":"Er ist nicht da.","z":1},{"nl":"de nacht","de":"die Nacht (die Nächte)","z":1},{"nl":"hier - daar","de":"hier - dort","z":0},{"nl":"de dag","de":"der Tag (die Tage)","z":1},{"nl":"liggen - staan","de":"liegen - stehen","z":0},{"nl":"de week","de":"die Woche (die Wochen)","z":1},{"nl":"ergens","de":"irgendwo","z":0},{"nl":"de maand","de":"der Monat (die Monate)","z":1},{"nl":"overal","de":"überall","z":0},{"nl":"het jaar","de":"das Jahr (die Jahre)","z":1},{"nl":"nergens","de":"nirgends, nirgendwo","z":0},{"nl":"maandag","de":"Montag","z":0},{"nl":"daarginds","de":"da drüben","z":0},{"nl":"dinsdag","de":"Dienstag","z":0},{"nl":"vooraan - achteraan","de":"vorne - hinten","z":0},{"nl":"woensdag","de":"Mittwoch","z":0},{"nl":"binnen - buiten","de":"drinnen - draußen","z":0},{"nl":"donderdag","de":"Donnerstag","z":0},{"nl":"naar binnen - naar buiten","de":"hinein - hinaus","z":0},{"nl":"vrijdag","de":"Freitag","z":0},{"nl":"boven - beneden","de":"oben - unten","z":0},{"nl":"zaterdag","de":"Samstag / Sonnabend","z":0},{"nl":"links - rechts","de":"links - rechts","z":0},{"nl":"zondag","de":"Sonntag","z":0},{"nl":"in het midden","de":"in der Mitte","z":0},{"nl":"het weekeinde","de":"das Wochenende","z":0},{"nl":"halverwege","de":"halbwegs","z":0},{"nl":"in het weekend","de":"am Wochenende","z":0},{"nl":"naast","de":"neben","z":0},{"nl":"met kerstmis","de":"zu Weihnachten","z":0},{"nl":"tussen","de":"zwischen","z":0},{"nl":"met pasen","de":"zu Ostern","z":0},{"nl":"op - onder","de":"auf - unter","z":0},{"nl":"met pinksteren","de":"zu Pfingsten","z":0},{"nl":"rondom de kerk","de":"ringsum die Kirche","z":0},{"nl":"oud- en nieuw","de":"Sylvester","z":0},{"nl":"in het begin - aan het eind","de":"am Anfang - am Ende","z":1},{"nl":"de eeuw","de":"das Jahrhundert","z":0},{"nl":"boven het raam","de":"über dem Fenster","z":0},{"nl":"welke datum hebben we vandaag?","de":"Welches Datum ist heute?","z":1},{"nl":"onder het raam","de":"unter dem Fenster","z":0},{"nl":"Hij is pas 8.","de":"Er ist erst 8.","z":1},{"nl":"in het noorden","de":"im Norden","z":0},{"nl":"nu - later","de":"jetzt - später","z":0},{"nl":"ten zuiden van","de":"südlich von","z":0},{"nl":"vandaag - morgen","de":"heute - morgen","z":0},{"nl":"het zuiden","de":"der Süden","z":0},{"nl":"gisteren - vandaag","de":"gestern - heute","z":0},{"nl":"het westen","de":"der Westen","z":0},{"nl":"overmorgen","de":"übermorgen","z":0},{"nl":"het noorden","de":"der Norden","z":0},{"nl":"vanochtend","de":"heute morgen","z":0},{"nl":"het oosten","de":"der Osten","z":0},{"nl":"morgenochtend","de":"morgen früh","z":0},{"nl":"thuis","de":"zu Hause","z":0},{"nl":"komende week","de":"nächste Woche","z":0},{"nl":"naar huis","de":"nach Hause","z":0},{"nl":"vroeger - tegenwoordig","de":"früher - heute","z":0},{"nl":"hoe ver?","de":"wie weit?","z":1},{"nl":"al","de":"schon","z":0},{"nl":"in de buurt van","de":"in der Nähe von","z":1},{"nl":"nog","de":"noch","z":0},{"nl":"waar vandaan?","de":"woher?","z":0},{"nl":"voordat - nadat","de":"bevor - nachdem","z":0},{"nl":"heen - terug","de":"hin - zurück","z":0},{"nl":"Toen ik binnenkwam, ..","de":"Als ich hereinkam, …","z":1},{"nl":"tot","de":"bis","z":0},{"nl":"eerst … dan","de":"zuerst … dan","z":0},{"nl":"vanaf","de":"ab","z":0},{"nl":"ondertussen","de":"inzwischen","z":0},{"nl":"achter - voor","de":"hinter - vor","z":0},{"nl":"als … dan","de":"wenn … dann","z":0},{"nl":"voor - tegen","de":"für - gegen","z":0},{"nl":"op het moment","de":"im Moment / gerade","z":1},{"nl":"Hoe kan ik…","de":"Wie kann ich?","z":1},{"nl":"de helft","de":"die Hälfte","z":0},{"nl":"van 3 t/m 8 juli","de":"vom 3. bis 8. Juli","z":1},{"nl":"hoeveel?","de":"wieviel?","z":0},{"nl":"ooit","de":"irgendwann","z":0},{"nl":"elke","de":"jeder","z":0},{"nl":"Hoe laat is het?","de":"Wie spät ist es?","z":1},{"nl":"enkele","de":"einige","z":0},{"nl":"het is zeven uur","de":"Es ist sieben Uhr","z":1},{"nl":"meer dan","de":"mehr als","z":0},{"nl":"een kwartier","de":"eine Viertelstunde","z":0},{"nl":"minder dan","de":"weniger als","z":0},{"nl":"Ik kom om kwart voor zes","de":"Ich komme um Viertel vor sechs","z":1},{"nl":"bijna","de":"fast","z":0},{"nl":"kwart over vijf","de":"Viertel nach fünf","z":0},{"nl":"Ik blijf maar een week.","de":"Ich bleibe nur eine Woche.","z":1},{"nl":"de ochtend","de":"der Morgen","z":0},{"nl":"minimaal - maximaal","de":"mindestens - höchstens","z":0},{"nl":"'s ochtends","de":"am Morgen","z":0},{"nl":"een beetje","de":"ein bisschen","z":0},{"nl":"de middag","de":"der Mittag","z":0},{"nl":"altijd - nooit","de":"immer - nie","z":0}]},{"id":9,"title":"Mensen & dingen beschrijven","icon":"🧑","items":[{"nl":"Wat is er aan de hand?","de":"Was ist los?","z":1},{"nl":"droevig","de":"traurig","z":0},{"nl":"Wat is er gebeurd?","de":"Was ist passiert?","z":1},{"nl":"dom","de":"dumm","z":0},{"nl":"groot - klein","de":"groß - klein","z":0},{"nl":"huilen","de":"weinen","z":0},{"nl":"lang - kort","de":"lang - kurz","z":0},{"nl":"lachen","de":"lachen","z":0},{"nl":"breed - smal","de":"breit - schmal","z":0},{"nl":"hopen","de":"hoffen","z":0},{"nl":"hoog - laag","de":"hoch - tief","z":0},{"nl":"bang zijn voor …","de":"Angst haben vor …","z":1},{"nl":"dik - dun","de":"dick - dünn","z":0},{"nl":"opgewonden","de":"aufgeregt","z":0},{"nl":"nauw - ruim","de":"eng - weit","z":0},{"nl":"nerveus","de":"nervös","z":0},{"nl":"leeg - vol","de":"leer - voll","z":0},{"nl":"zich ergeren aan","de":"sich ärgern über","z":0},{"nl":"zwaar - licht","de":"schwer - leicht","z":0},{"nl":"prima","de":"prima","z":0},{"nl":"hard - zacht","de":"hart - weich","z":0},{"nl":"uitstekend","de":"ausgezeichnet","z":0},{"nl":"rond - hoekig","de":"rund - eckig","z":0},{"nl":"geweldig","de":"toll","z":0},{"nl":"sterk - zwak","de":"stark - schwach","z":0},{"nl":"meestal","de":"meistens","z":0},{"nl":"droog - vochtig","de":"trocken - feucht","z":0},{"nl":"normaal gesproken","de":"normalerweise","z":0},{"nl":"luid - zachtjes","de":"laut - leise","z":0},{"nl":"merkwaardig","de":"merkwürdig","z":0},{"nl":"de vorm","de":"die Form","z":0},{"nl":"bijzonder leuk","de":"besonders schön","z":0},{"nl":"Het ziet er uit als …","de":"Es sieht aus wie …","z":1},{"nl":"hopelijk","de":"hoffentlich","z":0},{"nl":"warm - koud","de":"warm - kalt","z":0},{"nl":"handig","de":"praktisch","z":0},{"nl":"de kleur","de":"die Farbe","z":0},{"nl":"(on)belangrijk","de":"(un)wichtig","z":0},{"nl":"zwart - wit","de":"schwarz - weiß","z":0},{"nl":"dringend","de":"dringend","z":0},{"nl":"blauw","de":"blau","z":0},{"nl":"persé","de":"unbedingt","z":0},{"nl":"groen","de":"grün","z":0},{"nl":"Het belangrijkste is, dat …","de":"Das Wichtigste ist, dass …","z":1},{"nl":"rood","de":"rot","z":0},{"nl":"iets nodig hebben","de":"etwas brauchen","z":0},{"nl":"geel","de":"geel","z":0},{"nl":"(on)mogelijk","de":"(un)möglich","z":0},{"nl":"oranje","de":"orange","z":0},{"nl":"de kans","de":"die Chance","z":0},{"nl":"bruin","de":"braun","z":0},{"nl":"moeilijk","de":"schwer","z":0},{"nl":"grijs","de":"grau","z":0},{"nl":"ingewikkeld","de":"kompliziert","z":0},{"nl":"donker - licht","de":"dunkel - hell","z":0},{"nl":"succes - pech","de":"Erfolg - Pech","z":0},{"nl":"van plastic","de":"aus Kunststoff","z":0},{"nl":"tevergeefs","de":"umsonst","z":0},{"nl":"van hout","de":"aus Holz","z":0},{"nl":"dezelfde … ,als","de":"derselbe/dieselbe/dasselbe …, wie …","z":1},{"nl":"leer","de":"Leder","z":0},{"nl":"Het zijn verschillende kleuren","de":"Es sind unterschiedliche Farben","z":1},{"nl":"glas","de":"Glas","z":0},{"nl":"zo groot als","de":"so groß wie","z":0},{"nl":"metaal","de":"Metall","z":0},{"nl":"meer - het meest","de":"mehr - am meisten","z":1},{"nl":"normaal - vreemd","de":"normal - komisch","z":0},{"nl":"minder - het minst","de":"weniger - am wenigsten","z":1},{"nl":"modern - ouderwets","de":"modern - altmodisch","z":0},{"nl":"in vergelijking tot","de":"im Vergleich zu","z":0},{"nl":"spannend - saai","de":"spannend - langweilig","z":0},{"nl":"zonder - met","de":"ohne - mit","z":0},{"nl":"jong - oud","de":"jung - alt","z":0},{"nl":"samen - apart","de":"zusammen - getrennt","z":0},{"nl":"deels - helemaal","de":"teils - ganz","z":0},{"nl":"behalve","de":"außer","z":0},{"nl":"mooi - lelijk","de":"schön - hässlich","z":0},{"nl":"weliswaar … maar","de":"zwar … aber","z":0},{"nl":"knap (om te zien)","de":"hübsch","z":0},{"nl":"niet a maar b","de":"nicht a sondern b","z":1},{"nl":"knap (intelligent) - dom","de":"klug - dumm","z":0},{"nl":"hoezo","de":"wieso","z":0},{"nl":"tevreden","de":"zufrieden","z":0},{"nl":"omdat","de":"weil","z":0},{"nl":"(on)vriendelijk","de":"(un)freundlich","z":0},{"nl":"want","de":"denn","z":0},{"nl":"sympathiek","de":"sympathisch","z":0},{"nl":"wegens","de":"wegen","z":0},{"nl":"eerlijk","de":"ehrlich","z":0},{"nl":"daarom","de":"deshalb","z":0},{"nl":"spontaan","de":"spontan","z":0},{"nl":"zo dat","de":"so dass","z":0},{"nl":"levendig","de":"lebendig","z":0},{"nl":"bovendien","de":"außerdem","z":0},{"nl":"verliefd","de":"verliebt","z":0},{"nl":"waarvoor","de":"wofür","z":0},{"nl":"moedig","de":"mutig","z":0},{"nl":"als … dan","de":"wenn … dann","z":0},{"nl":"rustig - druk","de":"ruhig - hektisch","z":0},{"nl":"Anders kom ik te laat","de":"Sonst komme ich zu spät","z":1}]},{"id":10,"title":"Mening, gevoel & discussie","icon":"🤔","items":[{"nl":"Hoe bedoel je dat?","de":"Wie meinst du das?","z":1},{"nl":"Zeker niet!","de":"Gewiss nicht!","z":1},{"nl":"Hoe zie jij dat?","de":"Wie siehst du das?","z":1},{"nl":"Wat een onzin!","de":"So ein Unsinn!","z":1},{"nl":"Wat vindt u?","de":"Was meinen Sie?","z":1},{"nl":"o jewel!","de":"doch!","z":0},{"nl":"Dat is immers niet nieuw.","de":"Das ist ja nicht neu.","z":1},{"nl":"Je vergist je.","de":"Du irrst dich.","z":1},{"nl":"Dat klopt!","de":"Das stimmt!","z":1},{"nl":"Ja, maar…","de":"Ja, aber …","z":0},{"nl":"Natuurlijk!","de":"Klar!","z":0},{"nl":"Eigenlijk wel, maar…","de":"Eigentlich schon, aber …","z":1},{"nl":"Ik ben het helemaal met je eens","de":"Ich bin ganz deiner Meinung.","z":1},{"nl":"Ik dachte, dat…","de":"Ich dachte, dass…","z":0},{"nl":"Volgens mijn mening","de":"Meiner Meinung nach","z":0},{"nl":"liever","de":"lieber","z":0},{"nl":"Daar heb je gelijk in!","de":"Da hast du Recht!","z":1},{"nl":"Dat maakt mij niet uit.","de":"Das ist mir egal.","z":1},{"nl":"Dat is mij te makkelijk gedacht.","de":"Das ist mir zu einfach gedacht.","z":1},{"nl":"Wil je liever a of b?","de":"Möchtest du lieber a oder b?","z":1},{"nl":"Dat is niet waar.","de":"Das ist nicht wahr.","z":1},{"nl":"de gedachte","de":"der Gedanke","z":0},{"nl":"Dat kan natuurlijk niet.","de":"Das geht natürlich nicht.","z":1},{"nl":"Dat is mooi voor u.","de":"Das freut mich für Sie.","z":1},{"nl":"Ik weet het zeker.","de":"Ich bin mir ganz sicher.","z":1},{"nl":"Dat is leuk!","de":"Das macht Spaß!","z":1},{"nl":"Ik ben ervan overtuigd, dat…","de":"Ich bin davon überzeugt, dass…","z":1},{"nl":"eindelijk","de":"endlich","z":0},{"nl":"kennelijk is het zo, dat …","de":"anscheinend ist es so, dass…","z":1},{"nl":"Ik ben blij, dat","de":"Ich freue mich, dass…","z":1},{"nl":"Daar lijkt het wel op.","de":"Es sieht so aus.","z":1},{"nl":"Jammer, dat…","de":"Schade, dass…","z":0},{"nl":"Dat begrijp ik.","de":"Das verstehe ich.","z":1},{"nl":"Ik ben teleurgesteld, dat …","de":"Ich bin enttäuscht, dass …","z":1},{"nl":"Je kunt ervan uitgaan, dat…","de":"Man kann davon ausgehen, dass …","z":1},{"nl":"vreselijk","de":"schrecklich!","z":0},{"nl":"misschien","de":"vielleicht","z":0},{"nl":"Dat dacht ik al.","de":"Das habe ich mir schon gedacht.","z":1},{"nl":"Dat is niet duidelijk.","de":"Das ist nicht klar.","z":1},{"nl":"Nou en?","de":"Na und?","z":1},{"nl":"in werkelijkheid","de":"in Wirklichkeit","z":0},{"nl":"Dat is nu eenmaal zo.","de":"Das ist nun mal so.","z":1},{"nl":"Ik zou wel eens willen weten, …","de":"Ich wüsste mal gern, …","z":1},{"nl":"Wat doe ik dan?","de":"Was mache ich dann?","z":1},{"nl":"zeker niet","de":"bestimmt nicht","z":0},{"nl":"Ik maak me zorgen, dat…","de":"Ich mache mir Sorgen, dass …","z":1},{"nl":"Dat hangt ervan af.","de":"Das kommt drauf an.","z":1},{"nl":"Dat gaat te ver!","de":"Das geht zu weit!","z":1},{"nl":"Dat klopt!","de":"Das stimmt!","z":1},{"nl":"Geloof je echt, dat … ?","de":"Glaubst du wirklich, dass … ?","z":1},{"nl":"inderdaad","de":"tatsächlich","z":0},{"nl":"eisen","de":"fordern","z":0},{"nl":"Ja, natuurlijk.","de":"Ja, klar!","z":1},{"nl":"vrede","de":"der Frieden","z":0},{"nl":"Ik herinner me, dat…","de":"Ich erinnere mich, dass …","z":1},{"nl":"de situatie","de":"die Situation","z":0},{"nl":"Geloof me","de":"Glaube mir","z":0},{"nl":"serieus","de":"ernst","z":0},{"nl":"Ik denk, dat","de":"Ich denke, dass…","z":0},{"nl":"de hervorming","de":"die Reform","z":0},{"nl":"Ik vind","de":"Ich finde","z":0},{"nl":"onderhandelen","de":"verhandeln","z":0},{"nl":"Voor zover ik weet","de":"Soweit ich weiß","z":0},{"nl":"het probleem","de":"das Problem","z":0},{"nl":"Ik vermoed dat","de":"Ich vermute, dass","z":0},{"nl":"het compromis","de":"der Kompromiss","z":0},{"nl":"Het zou kunnen.","de":"Könnte sein.","z":1},{"nl":"de oplossing","de":"die Lösung","z":0},{"nl":"Ik betwijfel, of …","de":"Ich bezweifle, ob …","z":1},{"nl":"beslissen","de":"sich entscheiden","z":0},{"nl":"Ik vraag me af, of …","de":"Ich frage mich, ob …","z":1},{"nl":"bekritiseren","de":"kritisieren","z":0},{"nl":"Ik heb geen idee","de":"Ich habe keine Ahnung","z":1},{"nl":"de kritiek","de":"die Kritik","z":0},{"nl":"Mijn schiet wat anders te binnen.","de":"Mir fällt da etwas Anderes ein.","z":1},{"nl":"discussiëren","de":"diskutieren","z":0},{"nl":"Ik heb het gevoel, dat","de":"Ich habe das Gefühl, dass…","z":1},{"nl":"het protest","de":"das Protest","z":0},{"nl":"Ik heb de indruk, dat","de":"Ich habe den Eindruck, dass…","z":1},{"nl":"het proces","de":"der Prozess","z":0},{"nl":"Ik ben voor / tegen …","de":"Ich bin für / gegen","z":1},{"nl":"de ontwikkeling","de":"die Entwicklung","z":0},{"nl":"de mening","de":"die Meinung","z":0},{"nl":"de hulp","de":"die Hilfe","z":0},{"nl":"de stelling","de":"die These","z":0},{"nl":"nodig hebben","de":"brauchen","z":0},{"nl":"het argument","de":"das Argument","z":0},{"nl":"de politieke partij","de":"die politische Partei","z":0},{"nl":"Welke argumenten heb je daarvoor?","de":"Welche Argumente hast du dafur?","z":1},{"nl":"winnen - verliezen","de":"gewinnen - verlieren","z":0},{"nl":"toendaarnet","de":"soeben","z":0},{"nl":"de bevolking","de":"die Bevölkerung","z":0},{"nl":"Het is jammer, dat…","de":"Es ist schade, dass …","z":1},{"nl":"de mensen","de":"die Leute","z":0},{"nl":"Het spijt me, dat….","de":"Es tut mir Leid, dass …","z":1},{"nl":"de burgers","de":"die Bürger","z":0},{"nl":"per ongeluk","de":"ohne Absicht","z":0},{"nl":"internationaal","de":"international","z":0},{"nl":"Dat was een fout.","de":"Das war ein Fehler.","z":1},{"nl":"de Verenigde Naties","de":"die Vereinten Nationen","z":0}]},{"id":11,"title":"De top 100","icon":"⭐","items":[{"nl":"achter","de":"hinter","z":0},{"nl":"maar","de":"aber","z":0},{"nl":"achteraan","de":"hinten","z":0},{"nl":"maken, doen","de":"machen","z":0},{"nl":"afgelopen maand","de":"letzten Monat","z":0},{"nl":"makkelijk","de":"leicht","z":0},{"nl":"al","de":"schon","z":0},{"nl":"meestal","de":"meistens","z":0},{"nl":"alleen maar","de":"nur (of: nur noch)","z":1},{"nl":"misschien","de":"vielleicht","z":0},{"nl":"alleen nog","de":"nur noch","z":0},{"nl":"moeilijk","de":"schwierig","z":0},{"nl":"als","de":"wenn","z":0},{"nl":"mogelijk","de":"möglich","z":0},{"nl":"alstublieft (als je iets geeft)","de":"bitte","z":0},{"nl":"morgen","de":"morgen","z":0},{"nl":"altijd","de":"immer","z":0},{"nl":"naar","de":"zu","z":0},{"nl":"beginnen","de":"anfangen","z":0},{"nl":"naast","de":"neben","z":0},{"nl":"bijna","de":"fast","z":0},{"nl":"nergens","de":"nirgendwo","z":0},{"nl":"bijvoorbeeld","de":"zum Beispiel","z":0},{"nl":"nodig hebben","de":"brauchen","z":0},{"nl":"bijzonder","de":"besonders","z":0},{"nl":"nogal","de":"ziemlich","z":0},{"nl":"bovendien","de":"außerdem","z":0},{"nl":"nooit","de":"nie","z":0},{"nl":"daar","de":"dort","z":0},{"nl":"nu","de":"jetzt","z":0},{"nl":"daarom","de":"darum","z":0},{"nl":"of","de":"oder","z":0},{"nl":"dat was het","de":"das war es","z":0},{"nl":"omdat","de":"weil","z":0},{"nl":"de taal","de":"die Sprache","z":0},{"nl":"ongeveer","de":"ungefähr","z":0},{"nl":"duren","de":"dauern","z":0},{"nl":"ook","de":"auch","z":0},{"nl":"dus","de":"also","z":0},{"nl":"op maandag","de":"am Montag","z":0},{"nl":"één (getal)","de":"eins","z":0},{"nl":"ophouden, stoppen","de":"aufhören","z":0},{"nl":"een beetje","de":"ein bisschen","z":0},{"nl":"overal","de":"überall","z":0},{"nl":"eerst","de":"zuerst","z":0},{"nl":"pas","de":"erst","z":0},{"nl":"eet smakelijk","de":"Guten Appetit","z":0},{"nl":"per week","de":"pro Woche","z":0},{"nl":"elk dag","de":"jeden Tag","z":0},{"nl":"sinds","de":"seit","z":0},{"nl":"en","de":"und","z":0},{"nl":"soms","de":"manchmal","z":0},{"nl":"enige","de":"einzige","z":0},{"nl":"sorry!","de":"Entschuldigung! of: Verzeihung!","z":1},{"nl":"enkele","de":"einige","z":0},{"nl":"toch al","de":"sowieso","z":0},{"nl":"er is/zijn","de":"es gibt","z":0},{"nl":"tot ziens","de":"Auf Wiedersehen!","z":1},{"nl":"even(tjes)","de":"mal","z":0},{"nl":"uit","de":"aus","z":0},{"nl":"geen","de":"kein","z":0},{"nl":"vaak","de":"oft","z":0},{"nl":"gelukkig","de":"zum Glück","z":0},{"nl":"vaker","de":"öfter","z":0},{"nl":"geweest","de":"gewesen","z":0},{"nl":"van ... tot","de":"von ... bis","z":0},{"nl":"gisteren","de":"gestern","z":0},{"nl":"vandaag","de":"heute","z":0},{"nl":"graag","de":"gerne","z":0},{"nl":"veel","de":"viel","z":0},{"nl":"graag gedaan","de":"gern geschehen of bitte","z":1},{"nl":"ver","de":"weit","z":0},{"nl":"helaas niet","de":"leider nicht","z":0},{"nl":"verkeerd","de":"falsch","z":0},{"nl":"het spijt me","de":"Es tut mir Leid","z":1},{"nl":"vertellen","de":"erzählen","z":0},{"nl":"hoe gaat het met je","de":"Wie geht es dir?","z":1},{"nl":"volgende","de":"nächste","z":0},{"nl":"hoe vaak","de":"wie oft","z":0},{"nl":"vooraan","de":"vorne","z":0},{"nl":"hoeveel","de":"wie viel","z":0},{"nl":"waar","de":"wo","z":0},{"nl":"hoezo","de":"wieso","z":0},{"nl":"waar naartoe","de":"wohin","z":0},{"nl":"houden van","de":"mögen","z":0},{"nl":"waar vandaan","de":"woher","z":0},{"nl":"iets","de":"etwas","z":0},{"nl":"waarom","de":"warum","z":0},{"nl":"ik wil graag","de":"ich möchte","z":0},{"nl":"warm","de":"warm","z":0},{"nl":"je, men","de":"man","z":0},{"nl":"wat","de":"was","z":0},{"nl":"juist","de":"genau, gerade","z":0},{"nl":"weinig","de":"wenig","z":0},{"nl":"klaar","de":"fertig","z":0},{"nl":"wie","de":"wer","z":0},{"nl":"kort","de":"kurz","z":0},{"nl":"zodat","de":"so dass","z":0},{"nl":"koud","de":"kalt","z":0},{"nl":"lang","de":"lang(e)","z":0}]},{"id":12,"title":"Sterke werkwoorden","icon":"💪","items":[{"nl":"aanbevelen","de":"empfehlen","imp":"empfahl","pp":"empfohlen","du":"empfiehlst","er":"empfiehlt","z":0},{"nl":"bedriegen","de":"betrügen","imp":"betrog","pp":"betrogen","z":0},{"nl":"beginnen","de":"anfangen","imp":"fing an","pp":"angefangen","du":"fängst an","er":"fängt an","z":0},{"nl":"beginnen","de":"beginnen","imp":"begann","pp":"begonnen","z":0},{"nl":"bevallen","de":"gefallen","imp":"gefiel","pp":"gefallen","du":"gefällst","er":"gefällt","z":0},{"nl":"bewijzen","de":"nachweisen","imp":"wies nach","pp":"nachgewiesen","z":0},{"nl":"bieden","de":"bieten","imp":"bot","pp":"geboten","z":0},{"nl":"blijven","de":"bleiben","imp":"blieb","pp":"geblieben","z":0},{"nl":"breken","de":"brechen","imp":"brach","pp":"gebrochen","du":"brichst","er":"bricht","z":0},{"nl":"denken","de":"denken","imp":"dachte","pp":"gedacht","z":0},{"nl":"doen","de":"tun","imp":"tat","pp":"getan","z":0},{"nl":"dood gaan","de":"sterben","imp":"starb","pp":"gestorben","du":"stirbst","er":"stirbt","z":0},{"nl":"dragen","de":"tragen","imp":"trug","pp":"getragen","du":"trägst","er":"trägt","z":0},{"nl":"drinken","de":"trinken","imp":"trank","pp":"getrunken","z":0},{"nl":"dwingen","de":"zwingen","imp":"zwang","pp":"gezwungen","z":0},{"nl":"eten","de":"essen","imp":"aß","pp":"gegessen","du":"isst","er":"isst","z":0},{"nl":"gaan","de":"gehen","imp":"ging","pp":"gegangen","z":0},{"nl":"gebeuren","de":"geschehen","imp":"geschah","pp":"geschehen","z":0},{"nl":"geven","de":"geben","imp":"gab","pp":"gegeben","du":"gibst","er":"gibt","z":0},{"nl":"gooien","de":"werfen","imp":"warf","pp":"geworfen","du":"wirfst","er":"wirft","z":0},{"nl":"groeien","de":"wachsen","imp":"wuchs","pp":"gewachsen","z":0},{"nl":"hangen","de":"hängen","imp":"hing","pp":"gehangen","z":0},{"nl":"helpen","de":"helfen","imp":"half","pp":"geholfen","du":"hilfst","er":"hilft","z":0},{"nl":"heten","de":"heißen","imp":"hieß","pp":"geheißen","z":0},{"nl":"houden","de":"halten","imp":"hielt","pp":"gehalten","du":"hältst","er":"hält","z":0},{"nl":"komen","de":"kommen","imp":"kam","pp":"gekommen","z":0},{"nl":"krijgen","de":"bekommen","imp":"bekam","pp":"bekommen","z":0},{"nl":"laten","de":"lassen","imp":"ließ","pp":"gelassen","du":"lässt","er":"lässt","z":0},{"nl":"lenen","de":"leihen","imp":"lieh","pp":"geliehen","z":0},{"nl":"lezen","de":"lesen","imp":"las","pp":"gelesen","du":"liest","er":"liest","z":0},{"nl":"liegen","de":"lügen","imp":"log","pp":"gelogen","z":0},{"nl":"liggen","de":"liegen","imp":"lag","pp":"gelegen","z":0},{"nl":"lopen","de":"laufen","imp":"lief","pp":"gelaufen","du":"läufst","er":"läuft","z":0},{"nl":"lukken","de":"gelingen","imp":"gelang","pp":"gelungen","z":0},{"nl":"nemen","de":"nehmen","imp":"nahm","pp":"genommen","du":"nimmst","er":"nimmt","z":0},{"nl":"ontmoeten","de":"treffen","imp":"traf","pp":"getroffen","du":"triffst","er":"trifft","z":0},{"nl":"opbellen","de":"anrufen","imp":"rief an","pp":"angerufen","z":0},{"nl":"overstappen","de":"umsteigen","imp":"stieg um","pp":"umgestiegen","z":0},{"nl":"pakken","de":"nehmen","imp":"nahm","pp":"genommen","du":"nimmst","er":"nimmt","z":0},{"nl":"rijden","de":"fahren","imp":"fuhr","pp":"gefahren","du":"fährst","er":"fährt","z":0},{"nl":"roepen","de":"rufen","imp":"rief","pp":"gerufen","z":0},{"nl":"ruiken","de":"riechen","imp":"roch","pp":"gerochen","z":0},{"nl":"schijnen","de":"scheinen","imp":"schien","pp":"geschienen","z":0},{"nl":"schreeuwen","de":"schreien","imp":"schrie","pp":"geschrieen","z":0},{"nl":"schrijven","de":"schreiben","imp":"schrieb","pp":"geschrieben","z":0},{"nl":"slaan","de":"schlagen","imp":"schlug","pp":"geschlagen","du":"schlägst","er":"schlägt","z":0},{"nl":"slapen","de":"schlafen","imp":"schlief","pp":"geschlafen","du":"schläfst","er":"schläft","z":0},{"nl":"sluiten","de":"schließen","imp":"schloss","pp":"geschlossen","z":0},{"nl":"snijden","de":"schneiden","imp":"schnitt","pp":"geschnitten","z":0},{"nl":"spreken","de":"sprechen","imp":"sprach","pp":"gesprochen","du":"sprichst","er":"spricht","z":0},{"nl":"springen","de":"springen","imp":"sprang","pp":"gesprungen","z":0},{"nl":"staan","de":"stehen","imp":"stand","pp":"gestanden","z":0},{"nl":"stelen","de":"stehlen","imp":"stahl","pp":"gestohlen","du":"stiehlst","er":"stiehlt","z":0},{"nl":"stijgen","de":"steigen","imp":"stieg","pp":"gestiegen","z":0},{"nl":"trekken","de":"ziehen","imp":"zog","pp":"gezogen","z":0},{"nl":"tv-kijken","de":"fernsehen","imp":"sah fern","pp":"ferngesehen","du":"siehst fern","er":"sieht fern","z":0},{"nl":"uitnodigen","de":"einladen","imp":"lud ein","pp":"eingeladen","du":"lädst ein","er":"lädt ein","z":0},{"nl":"vallen","de":"fallen","imp":"fiel","pp":"gefallen","du":"fällst","er":"fällt","z":0},{"nl":"verdwijnen","de":"verschwinden","imp":"verschwand","pp":"verschwunden","z":0},{"nl":"vergeten","de":"vergessen","imp":"vergaß","pp":"vergessen","du":"vergisst","er":"vergisst","z":0},{"nl":"verhuizen","de":"umziehen","imp":"zog um","pp":"umgezogen","z":0},{"nl":"verliezen","de":"verlieren","imp":"verlor","pp":"verloren","z":0},{"nl":"vertrekken","de":"abfahren","imp":"fuhr ab","pp":"abgefahren","du":"fährst ab","er":"fährt ab","z":0},{"nl":"vinden","de":"finden","imp":"fand","pp":"gefunden","z":0},{"nl":"vliegen","de":"fliegen","imp":"flog","pp":"geflogen","z":0},{"nl":"verzoeken","de":"bitten","imp":"bat","pp":"gebeten","z":0},{"nl":"wassen","de":"waschen","imp":"wusch","pp":"gewaschen","z":0},{"nl":"winnen","de":"gewinnen","imp":"gewann","pp":"gewonnen","z":0},{"nl":"zien","de":"sehen","imp":"sah","pp":"gesehen","du":"siehst","er":"sieht","z":0},{"nl":"zingen","de":"singen","imp":"sang","pp":"gesungen","z":0},{"nl":"zitten","de":"sitzen","imp":"saß","pp":"gesessen","z":0},{"nl":"zwemmen","de":"schwimmen","imp":"schwamm","pp":"geschwommen","z":0}]},{"id":13,"title":"Zwakke werkwoorden","icon":"🔁","items":[{"nl":"aanbellen/rinkelen","de":"klingeln","z":0},{"nl":"controleren","de":"kontrollieren","z":0},{"nl":"antwoorden","de":"antworten","z":0},{"nl":"danken","de":"danken (+3e nv)","z":0},{"nl":"bedanken","de":"sich bedanken","z":0},{"nl":"dansen","de":"tanzen","z":0},{"nl":"bedoelen","de":"meinen","z":0},{"nl":"dicht doen","de":"zumachen","z":0},{"nl":"beleven","de":"erleben","z":0},{"nl":"doen","de":"machen","z":0},{"nl":"betalen","de":"bezahlen","z":0},{"nl":"doorgaan","de":"weitermachen","z":0},{"nl":"betekenen","de":"bedeuten","z":0},{"nl":"douchen","de":"duschen","z":0},{"nl":"blijken","de":"sich herausstellen","z":0},{"nl":"draaien","de":"drehen","z":0},{"nl":"boodschappen doen","de":"einkaufen","z":0},{"nl":"drukken","de":"drücken","z":0},{"nl":"bouwen","de":"bauen","z":0},{"nl":"duren","de":"dauern","z":0},{"nl":"condoleren","de":"kondolieren (+3e nv)","z":0},{"nl":"durven","de":"sich trauen","z":0},{"nl":"feliciteren","de":"gratulieren (+3e nv)","z":0},{"nl":"proeven","de":"kosten","z":0},{"nl":"fotograferen","de":"fotografieren","z":0},{"nl":"regenen","de":"regnen","z":0},{"nl":"gaan liggen","de":"sich hinlegen","z":0},{"nl":"reizen","de":"reisen","z":0},{"nl":"gaan zitten","de":"sich setzen","z":0},{"nl":"remmen","de":"bremsen","z":0},{"nl":"gebeuren","de":"passieren","z":0},{"nl":"schoonmaken","de":"sauber machen","z":0},{"nl":"geloven","de":"glauben (+3e nv)","z":0},{"nl":"smaken","de":"schmecken","z":0},{"nl":"halen","de":"holen","z":0},{"nl":"spelen","de":"spielen","z":0},{"nl":"herhalen","de":"wiederholen","z":0},{"nl":"spellen","de":"buchstabieren","z":0},{"nl":"hopen","de":"hoffen","z":0},{"nl":"storen","de":"stören","z":0},{"nl":"horen","de":"hören","z":0},{"nl":"studeren","de":"studieren","z":0},{"nl":"horen bij","de":"gehören zu","z":0},{"nl":"sturen","de":"schicken","z":0},{"nl":"houden van","de":"lieben","z":0},{"nl":"tegenkomen","de":"begegnen (+3e nv)","z":0},{"nl":"huilen","de":"weinen","z":0},{"nl":"telefoneren","de":"telefonieren","z":0},{"nl":"huren","de":"mieten","z":0},{"nl":"tellen","de":"zählen","z":0},{"nl":"kennismaken","de":"kennenlernen","z":0},{"nl":"toestaan","de":"erlauben","z":0},{"nl":"kloppen (op deur)","de":"klopfen","z":0},{"nl":"trouwen met","de":"heiraten","z":0},{"nl":"kloppen (juist zijn)","de":"stimmen","z":0},{"nl":"twijfelen aan","de":"zweifeln an (+3e nv)","z":1},{"nl":"koken","de":"kochen","z":0},{"nl":"uitdoen (licht)","de":"ausmachen","z":0},{"nl":"kopen","de":"kaufen","z":0},{"nl":"uitleggen","de":"erklären","z":0},{"nl":"kosten","de":"kosten (+4e nv)","z":0},{"nl":"uitrusten","de":"sich ausruhen","z":0},{"nl":"lachen","de":"lachen","z":0},{"nl":"verbeteren","de":"verbessern","z":0},{"nl":"laten weten","de":"Bescheid sagen (+3e nv)","z":1},{"nl":"verdienen","de":"verdienen","z":0},{"nl":"laten zien","de":"zeigen","z":0},{"nl":"verklaren","de":"erklären","z":0},{"nl":"leggen","de":"legen","z":0},{"nl":"verkopen","de":"verkaufen","z":0},{"nl":"leren","de":"lernen","z":0},{"nl":"verliefd worden op","de":"sich verlieben in (+4e nv)","z":1},{"nl":"leven","de":"leben","z":0},{"nl":"vertalen","de":"übersetzen","z":0},{"nl":"luisteren","de":"zuhören (+3e nv)","z":0},{"nl":"vertellen","de":"erzählen","z":0},{"nl":"maken","de":"machen","z":0},{"nl":"vertrouwen","de":"vertrauen (+3e nv)","z":0},{"nl":"melden","de":"melden","z":0},{"nl":"volgen","de":"folgen (+3e nv)","z":0},{"nl":"merken","de":"merken","z":0},{"nl":"wachten","de":"warten","z":0},{"nl":"missen","de":"vermissen","z":0},{"nl":"wekken","de":"wecken","z":0},{"nl":"missen","de":"verpassen","z":0},{"nl":"wennen aan","de":"sich gewöhnen an (+4e nv)","z":1},{"nl":"missen, ontbreken","de":"fehlen","z":0},{"nl":"werken","de":"arbeiten","z":0},{"nl":"neerleggen","de":"hinlegen","z":0},{"nl":"wisselen","de":"wechseln","z":0},{"nl":"nodig hebben","de":"brauchen","z":0},{"nl":"wonen","de":"wohnen","z":0},{"nl":"onthouden","de":"sich merken","z":0},{"nl":"zeggen","de":"sagen","z":0},{"nl":"opendoen","de":"aufmachen","z":0},{"nl":"zich bewegen","de":"sich rühren","z":0},{"nl":"ophouden","de":"aufhören","z":0},{"nl":"zich haasten","de":"sich beeilen","z":0},{"nl":"oplossen (probleem)","de":"lösen","z":0},{"nl":"zich herinneren aan","de":"sich erinnern an (+4e nv)","z":1},{"nl":"opletten","de":"aufpassen","z":0},{"nl":"zich vergissen","de":"sich irren","z":0},{"nl":"oversteken","de":"überqueren","z":0},{"nl":"zich verheugen","de":"sich freuen","z":0},{"nl":"praten","de":"reden","z":0},{"nl":"zoeken","de":"suchen","z":0},{"nl":"proberen","de":"versuchen","z":0}]}];
+(() => {
+  // ---------- Opslag ----------
+  const KEY = "basiswortschatz-duits-v1";
+  const load = () => { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch { return {}; } };
+  const state = Object.assign({ mode: "kies", dir: "de", kind: "alles", len: 10, cats: [1], progress: {}, days: [] }, load());
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch {} };
+
+  // ---------- Data ----------
+  const CATS = {};
+  const items = [];
+  DATA.forEach(c => {
+    CATS[c.id] = c;
+    c.items.forEach((it, i) => items.push(Object.assign({ id: c.id + "|" + i, cat: c.id }, it)));
+  });
+  const box = it => state.progress[it.id]?.box ?? -1;   // -1 = nieuw, 0..5 = bakje
+  const MASTERED = 3;
+  const isWeak = it => { const p = state.progress[it.id]; return p && p.wrong > 0 && p.box < MASTERED; };
+
+  // ---------- Hulpjes ----------
+  const $ = id => document.getElementById(id);
+  const shuffle = a => { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const colorArt = s => esc(s).replace(/^(der|die|das)\b/, m => `<span class="art-${m}">${m}</span>`);
+  const VIEWS = ["home", "quiz", "result", "lijst"];
+  const show = id => { VIEWS.forEach(s => $(s).hidden = s !== id); window.scrollTo(0, 0); };
+  const today = () => new Date().toISOString().slice(0, 10);
+  const formsOf = it => it.imp ? [it.du && `du ${it.du}`, it.er && `er ${it.er}`, `er ${it.imp}`, `hat/ist ${it.pp}`].filter(Boolean).join(" · ") : "";
+
+  function streak() {
+    const set = new Set(state.days); let n = 0; const d = new Date();
+    if (!set.has(today())) d.setDate(d.getDate() - 1);
+    while (set.has(d.toISOString().slice(0, 10))) { n++; d.setDate(d.getDate() - 1); }
+    return n;
+  }
+
+  // ---------- Start ----------
+  function segs() {
+    [["modeSeg", "mode"], ["dirSeg", "dir"], ["kindSeg", "kind"], ["lenSeg", "len"]].forEach(([id, k]) =>
+      document.querySelectorAll(`#${id} button`).forEach(b => b.classList.toggle("on", String(state[k]) === b.dataset.v)));
+  }
+  function pool() {
+    return items.filter(i => state.cats.includes(i.cat) && (state.kind === "alles" || (state.kind === "zin") === !!i.z));
+  }
+  function renderHome() {
+    $("sTotal").textContent = items.length;
+    $("sSeen").textContent = items.filter(i => box(i) >= 0).length;
+    $("sKnown").textContent = items.filter(i => box(i) >= MASTERED).length;
+    const s = streak(); $("streak").textContent = `🔥 ${s} ${s === 1 ? "dag" : "dagen"}`;
+    segs();
+    const wrap = $("cats"); wrap.innerHTML = "";
+    DATA.forEach(c => {
+      if (c.id === 11) wrap.insertAdjacentHTML("beforeend", `<p class="label group-label">Extra</p>`);
+      const list = items.filter(i => i.cat === c.id);
+      const known = list.filter(i => box(i) >= MASTERED).length;
+      const on = state.cats.includes(c.id);
+      const btn = document.createElement("button");
+      btn.className = "cat" + (on ? " on" : "");
+      btn.setAttribute("aria-pressed", on);
+      btn.innerHTML = `<span class="ic">${c.icon}</span>
+        <span class="nm">${c.id}. ${esc(c.title)}<div class="sub">${known} van ${list.length} beheerst</div>
+        <div class="bar"><i style="width:${(known / list.length) * 100}%"></i></div></span>
+        <span class="check">${on ? "✓" : ""}</span>`;
+      btn.onclick = () => { state.cats = on ? state.cats.filter(k => k !== c.id) : [...state.cats, c.id]; save(); renderHome(); };
+      wrap.appendChild(btn);
+    });
+    const allOn = state.cats.length === DATA.length;
+    $("allBtn").textContent = allOn ? "Alles uit" : "Alles aan";
+    const n = pool().length;
+    $("startBtn").disabled = n === 0;
+    $("startBtn").textContent = n ? `Start oefenen (${Math.min(n, state.len)})` : "Kies een hoofdstuk";
+    const weak = items.filter(isWeak).length;
+    $("weakBtn").textContent = weak ? `Lastige woorden (${weak})` : "Lastige woorden";
+    $("weakBtn").disabled = !weak;
+  }
+  const bindSeg = (id, key, num) => $(id).onclick = e => {
+    const b = e.target.closest("button"); if (!b) return;
+    state[key] = num ? +b.dataset.v : b.dataset.v; save(); renderHome();
+  };
+  bindSeg("modeSeg", "mode"); bindSeg("dirSeg", "dir"); bindSeg("kindSeg", "kind"); bindSeg("lenSeg", "len", true);
+  $("allBtn").onclick = () => { state.cats = state.cats.length === DATA.length ? [] : DATA.map(c => c.id); save(); renderHome(); };
+
+  // Wissen met bevestiging in de pagina zelf
+  const footHTML = $("foot").innerHTML;
+  function bindReset() {
+    $("resetBtn").onclick = () => {
+      $("foot").innerHTML = `<div class="confirm">Alle voortgang wissen? <button class="danger" id="rYes">Ja, wissen</button><button id="rNo">Nee</button></div>`;
+      $("rYes").onclick = () => { state.progress = {}; state.days = []; save(); $("foot").innerHTML = footHTML; bindReset(); renderHome(); };
+      $("rNo").onclick = () => { $("foot").innerHTML = footHTML; bindReset(); };
+    };
+  }
+  bindReset();
+
+  // ---------- Slim kiezen: nieuw en fout vaker, beheerst minder vaak ----------
+  function pick(list, n) {
+    const w = it => { const b = box(it); return b < 0 ? 4 : [8, 6, 4, 2, 1, 0.5][b] ?? 0.5; };
+    const chosen = [], rest = [...list];
+    while (chosen.length < n && rest.length) {
+      const total = rest.reduce((s, it) => s + w(it), 0);
+      let r = Math.random() * total, i = 0;
+      for (; i < rest.length; i++) { r -= w(rest[i]); if (r <= 0) break; }
+      chosen.push(rest.splice(Math.min(i, rest.length - 1), 1)[0]);
+    }
+    return chosen;
+  }
+
+  // ---------- Vraagtypes ----------
+  // Bij sterke werkwoorden vragen we de helft van de keren naar een vorm (verleden tijd, deelwoord, du/er).
+  const FORMS = { imp: "verleden tijd (er …)", pp: "voltooid deelwoord (hat/ist …)", du: "tegenwoordige tijd: du …", er: "tegenwoordige tijd: er …" };
+  function makeQuestion(it) {
+    const dir = state.dir === "mix" ? (Math.random() < .5 ? "de" : "nl") : state.dir;
+    if (it.imp && Math.random() < .5) {
+      const keys = ["imp", "pp"].concat(it.du ? ["du", "er"] : []);
+      const f = keys[Math.floor(Math.random() * keys.length)];
+      return { it, kind: "form", f, prompt: it.de, answer: it[f], askHTML: `Wat is de <mark>${FORMS[f]}</mark>?`, promptDE: true, answerDE: true };
+    }
+    return dir === "de"
+      ? { it, kind: "tr", prompt: it.de, answer: it.nl, askHTML: "Wat betekent dit?", promptDE: true, answerDE: false }
+      : { it, kind: "tr", prompt: it.nl, answer: it.de, askHTML: "Hoe zeg je dit in het Duits?", promptDE: false, answerDE: true };
+  }
+
+  // ---------- Antwoorden vergelijken ----------
+  const fold = s => s.toLowerCase()
+    .replace(/\(.*?\)/g, " ").replace(/\[.*?\]/g, " ")
+    .replace(/…|\.\.\./g, " ").replace(/[.,!?¿¡;:"'„“”‘’]/g, " ")
+    .replace(/ä/g, "ae").replace(/ö/g, "oe").replace(/ü/g, "ue").replace(/ß/g, "ss")
+    .replace(/\s+/g, " ").trim();
+  const ARTS = /^(der|die|das|de|het|een|ein|eine) /;
+  function alternatives(answer, sentence) {
+    let parts = answer.split(/\s*\/\s*/);
+    if (!sentence) parts = parts.flatMap(p => p.split(/\s*,\s*/));
+    return [answer, ...parts].map(fold).filter(Boolean);
+  }
+  function lev(a, b) {
+    const m = a.length, n = b.length; if (Math.abs(m - n) > 2) return 9;
+    let prev = Array.from({ length: n + 1 }, (_, j) => j);
+    for (let i = 1; i <= m; i++) {
+      const cur = [i];
+      for (let j = 1; j <= n; j++) cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+      prev = cur;
+    }
+    return prev[n];
+  }
+  // geeft {ok, note}
+  function judge(input, q) {
+    const u = fold(input); if (!u) return { ok: false };
+    const alts = alternatives(q.answer, q.it.z);
+    if (alts.includes(u)) return { ok: true };
+    const noArt = s => s.replace(ARTS, "");
+    if (alts.some(a => noArt(a) === noArt(u) && a !== u)) {
+      return q.answerDE ? { ok: false, note: "Bijna! Let op het lidwoord (der, die of das)." } : { ok: true };
+    }
+    const tol = s => s.length >= 12 ? 2 : s.length >= 5 ? 1 : 0;
+    if (alts.some(a => lev(a, u) <= tol(a))) return { ok: true, note: "Goed, maar let op de spelling." };
+    return { ok: false };
+  }
+
+  // ---------- Meerkeuze-afleiders ----------
+  function distractors(q) {
+    const it = q.it;
+    const val = c => q.kind === "form" ? c[q.f] : (q.answerDE ? c.de : c.nl);
+    const mine = fold(val(it));
+    const ok = c => c.id !== it.id && val(c) && fold(val(c)) !== mine && fold(c.nl) !== fold(it.nl) && fold(c.de) !== fold(it.de);
+    let cands = q.kind === "form" ? shuffle(items.filter(c => c.imp && ok(c)))
+      : shuffle(items.filter(c => ok(c) && c.cat === it.cat && !!c.z === !!it.z));
+    if (cands.length < 3) cands = cands.concat(shuffle(items.filter(c => ok(c) && !!c.z === !!it.z && !cands.includes(c))));
+    const out = [];
+    for (const c of cands) { if (out.length === 3) break; if (!out.some(o => fold(val(o)) === fold(val(c)))) out.push(c); }
+    return out.map(c => ({ id: c.id, text: val(c) }));
+  }
+
+  // ---------- Ronde ----------
+  let round = [], idx = 0, correct = 0, mistakes = [], answered = false, q = null, lastWeak = false;
+
+  function start(weakOnly) {
+    lastWeak = weakOnly;
+    const list = weakOnly ? items.filter(isWeak) : pool();
+    round = pick(list, state.len).map(makeQuestion);
+    idx = 0; correct = 0; mistakes = [];
+    show("quiz"); ask();
+  }
+
+  function ask() {
+    answered = false; q = round[idx];
+    const it = q.it, c = CATS[it.cat];
+    $("progBar").style.width = (idx / round.length * 100) + "%";
+    $("progTxt").textContent = `${idx + 1}/${round.length}`;
+    $("qCat").textContent = `${c.icon} ${c.title}`;
+    $("qAsk").innerHTML = q.askHTML;
+    $("qWord").innerHTML = q.promptDE ? colorArt(q.prompt) : esc(q.prompt);
+    $("qWord").classList.toggle("long", q.prompt.length > 24);
+    $("qForms").hidden = true;
+    $("speakBtn").hidden = !q.promptDE;
+    $("fb").hidden = true; $("nextBtn").hidden = true;
+    $("opts").hidden = state.mode !== "kies";
+    $("typeBox").hidden = state.mode !== "typ";
+    $("flipZone").hidden = state.mode !== "kaart";
+
+    if (state.mode === "kies") {
+      const options = shuffle([{ id: it.id, text: q.answer }, ...distractors(q)]);
+      const el = $("opts"); el.innerHTML = "";
+      options.forEach(o => {
+        const b = document.createElement("button");
+        b.className = "opt"; b.dataset.id = o.id;
+        b.innerHTML = q.answerDE ? colorArt(o.text) : esc(o.text);
+        b.onclick = () => {
+          if (answered) return;
+          const good = o.id === it.id;
+          document.querySelectorAll(".opt").forEach(x => x.classList.add(x.dataset.id === it.id ? "good" : x === b ? "bad" : "dim"));
+          finishQuestion(good);
+        };
+        el.appendChild(b);
+      });
+    } else if (state.mode === "typ") {
+      const inp = $("typeIn");
+      inp.value = ""; inp.className = ""; inp.disabled = false;
+      inp.placeholder = q.answerDE ? "Typ in het Duits…" : "Typ in het Nederlands…";
+      $("keys").querySelectorAll("button[type=button]").forEach(b => b.hidden = !q.answerDE);
+      $("checkBtn").hidden = false;
+      setTimeout(() => inp.focus({ preventScroll: true }), 50);
+    } else {
+      $("flipBtn").hidden = false; $("judge").hidden = true;
+    }
+  }
+
+  $("typeBox").onsubmit = e => {
+    e.preventDefault();
+    if (answered) { next(); return; }
+    const inp = $("typeIn");
+    if (!inp.value.trim()) { inp.focus(); return; }
+    const r = judge(inp.value, q);
+    inp.className = r.ok ? "good" : "bad"; inp.disabled = true;
+    $("checkBtn").hidden = true;
+    finishQuestion(r.ok, r.note);
+  };
+  $("keys").addEventListener("click", e => {
+    const b = e.target.closest("button[type=button]"); if (!b) return;
+    const inp = $("typeIn"); if (inp.disabled) return;
+    const s = inp.selectionStart ?? inp.value.length, en = inp.selectionEnd ?? s;
+    inp.value = inp.value.slice(0, s) + b.textContent + inp.value.slice(en);
+    inp.focus(); inp.setSelectionRange(s + 1, s + 1);
+  });
+
+  $("flipBtn").onclick = () => {
+    $("flipBtn").hidden = true; $("judge").hidden = false;
+    showAnswer(null);
+    if (q.answerDE) speak(q.answer);
+  };
+  $("yesBtn").onclick = () => { if (!answered) finishQuestion(true, null, true); };
+  $("noBtn").onclick = () => { if (!answered) finishQuestion(false, null, true); };
+
+  function showAnswer(good, note) {
+    const it = q.it, fb = $("fb");
+    fb.hidden = false;
+    fb.className = "fb" + (good === true ? " good" : good === false ? " bad" : "");
+    const head = good === null ? "" : `<b>${good ? "Richtig! 🎉" : "Leider falsch"}</b>`;
+    const ansLine = q.kind === "form"
+      ? `${colorArt(it.de)} → <b>${esc(q.answer)}</b>`
+      : `${colorArt(it.de)} = ${esc(it.nl)}`;
+    const forms = formsOf(it);
+    fb.innerHTML = `${head}<div class="ans">${ansLine}</div>`
+      + (forms ? `<div class="tip">${esc(forms)}</div>` : "")
+      + (note ? `<div class="tip">💡 ${esc(note)}</div>` : "");
+  }
+
+  function finishQuestion(good, note, flip) {
+    answered = true;
+    const it = q.it;
+    const p = state.progress[it.id] || { box: -1, right: 0, wrong: 0 };
+    if (good) { p.right++; p.box = Math.min(5, Math.max(0, p.box) + 1); correct++; }
+    else { p.wrong++; p.box = 0; mistakes.push(it); if (navigator.vibrate) try { navigator.vibrate(60); } catch {} }
+    state.progress[it.id] = p;
+    if (!state.days.includes(today())) state.days.push(today());
+    state.days = state.days.slice(-400);
+    save();
+    if (flip) { next(); return; }
+    showAnswer(good, note);
+    $("nextBtn").hidden = false;
+    $("nextBtn").textContent = idx === round.length - 1 ? "Bekijk resultaat" : "Volgende";
+    if (good) speak(it.de);
+    if (state.mode === "typ") $("nextBtn").focus({ preventScroll: true });
+  }
+
+  function next() { idx++; idx < round.length ? ask() : finish(); }
+  $("nextBtn").onclick = next;
+  $("quitBtn").onclick = () => { renderHome(); show("home"); };
+  $("speakBtn").onclick = () => speak(q.prompt);
+
+  // ---------- Uitspraak (stem van het apparaat) ----------
+  function bestVoice() {
+    if (!("speechSynthesis" in window)) return null;
+    const de = speechSynthesis.getVoices().filter(v => v.lang && v.lang.toLowerCase().startsWith("de"));
+    const score = v => (/premium|enhanced|verbessert|natural|neural|online/i.test(v.name) ? 10 : 0)
+      + (/google/i.test(v.name) ? 6 : 0) + (/anna|helena|petra|markus|yannick/i.test(v.name) ? 3 : 0) + (v.lang === "de-DE" ? 1 : 0);
+    return de.sort((a, b) => score(b) - score(a))[0];
+  }
+  function speak(text) {
+    if (!("speechSynthesis" in window)) return;
+    try {
+      speechSynthesis.cancel();
+      const clean = text.replace(/\(.*?\)/g, "").replace(/…|\.\.\./g, "").replace(/\s*\+\s*\w+/g, "").trim();
+      const u = new SpeechSynthesisUtterance(clean);
+      u.lang = "de-DE"; u.rate = 0.9;
+      const v = bestVoice(); if (v) u.voice = v;
+      speechSynthesis.speak(u);
+    } catch {}
+  }
+
+  // ---------- Resultaat ----------
+  const itemRow = (m, withSpeak = true) => `<li><div class="de">${colorArt(m.de)}</div><div class="nl">${esc(m.nl)}</div>`
+    + (m.imp ? `<div class="fm">${esc(formsOf(m))}</div>` : "")
+    + (withSpeak ? `<button class="sp" data-say="${esc(m.de)}" aria-label="Uitspraak">🔊</button>` : "") + `</li>`;
+  document.addEventListener("click", e => { const b = e.target.closest("[data-say]"); if (b) speak(b.dataset.say); });
+
+  function finish() {
+    $("progBar").style.width = "100%";
+    const pct = correct / round.length;
+    $("rScore").textContent = `${correct} / ${round.length}`;
+    $("rEmoji").textContent = pct === 1 ? "🏆" : pct >= .8 ? "🎉" : pct >= .5 ? "💪" : "📚";
+    $("rText").textContent = pct === 1 ? "Perfekt! Alles goed." : pct >= .8 ? "Sehr gut!" : pct >= .5 ? "Gut gemacht. Blijf oefenen!" : "Herhaling helpt. Probeer het nog eens!";
+    const uniq = [...new Map(mistakes.map(m => [m.id, m])).values()];
+    $("rMist").innerHTML = uniq.map(m => itemRow(m)).join("");
+    $("rMistCard").hidden = !uniq.length;
+    show("result");
+  }
+  $("againBtn").onclick = () => start(lastWeak && items.some(isWeak));
+  $("homeBtn").onclick = () => { renderHome(); show("home"); };
+  $("startBtn").onclick = () => start(false);
+  $("weakBtn").onclick = () => start(true);
+
+  // ---------- Woordenlijst ----------
+  let listCat = 1;
+  function renderList() {
+    $("chips").innerHTML = DATA.map(c => `<button data-c="${c.id}" class="${c.id === listCat ? "on" : ""}">${c.icon} ${c.id}. ${esc(c.title)}</button>`).join("");
+    const term = fold($("q").value);
+    const rows = term ? items.filter(i => fold(i.de + " " + i.nl + " " + (i.imp || "") + " " + (i.pp || "")).includes(term)) : items.filter(i => i.cat === listCat);
+    $("chips").style.opacity = term ? .45 : 1;
+    $("listCount").textContent = `${rows.length} ${rows.length === 1 ? "item" : "items"}`;
+    $("listUl").innerHTML = rows.slice(0, 400).map(m => itemRow(m)).join("") || `<li><div class="nl">Niets gevonden voor “${esc($("q").value)}”.</div></li>`;
+  }
+  $("chips").onclick = e => { const b = e.target.closest("button"); if (!b) return; listCat = +b.dataset.c; $("q").value = ""; renderList(); b.scrollIntoView({ inline: "center", block: "nearest" }); };
+  $("q").oninput = renderList;
+  $("listBtn").onclick = () => { listCat = state.cats[0] || 1; renderList(); show("lijst"); };
+  $("listBack").onclick = () => { renderHome(); show("home"); };
+
+  if ("speechSynthesis" in window) speechSynthesis.getVoices();
+  renderHome();
+})();
+</script>
+
+</html>
