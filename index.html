@@ -361,6 +361,7 @@ const DATA = [{"id":1,"title":"Omgang met mensen","icon":"👋","items":[{"nl":"
     const n = pool().length;
     $("startBtn").disabled = n === 0;
     $("startBtn").textContent = n ? `Start oefenen (${Math.min(n, state.len)})` : "Kies een hoofdstuk";
+    loadAudio(state.cats);
     const weak = items.filter(isWeak).length;
     $("weakBtn").textContent = weak ? `Lastige woorden (${weak})` : "Lastige woorden";
     $("weakBtn").disabled = !weak;
@@ -468,6 +469,7 @@ const DATA = [{"id":1,"title":"Omgang met mensen","icon":"👋","items":[{"nl":"
     lastWeak = weakOnly;
     const list = weakOnly ? items.filter(isWeak) : pool();
     round = pick(list, state.len).map(makeQuestion);
+    loadAudio([...new Set(round.map(r => r.it.cat))]);
     idx = 0; correct = 0; mistakes = [];
     show("quiz"); ask();
   }
@@ -578,7 +580,23 @@ const DATA = [{"id":1,"title":"Omgang met mensen","icon":"👋","items":[{"nl":"
   $("quitBtn").onclick = () => { renderHome(); show("home"); };
   $("speakBtn").onclick = () => speak(q.prompt);
 
-  // ---------- Uitspraak (stem van het apparaat) ----------
+  // ---------- Uitspraak ----------
+  // Eerst de opgenomen stem (audio/cN.js per hoofdstuk, pas geladen als dat hoofdstuk nodig is),
+  // anders de voorleesstem van het apparaat.
+  window.AUDIO = window.AUDIO || {};
+  const sayKey = t => t.replace(/\(.*?\)/g, "").replace(/…|\.\.\./g, "").replace(/\s+/g, " ").trim();
+  const loadedAudio = {};
+  function loadAudio(ids) {
+    ids.forEach(id => {
+      if (loadedAudio[id]) return;
+      loadedAudio[id] = true;
+      const s = document.createElement("script");
+      s.src = `audio/c${id}.js`;
+      s.onerror = () => { loadedAudio[id] = false; s.remove(); };
+      document.head.appendChild(s);
+    });
+  }
+  const player = new Audio();
   function bestVoice() {
     if (!("speechSynthesis" in window)) return null;
     const de = speechSynthesis.getVoices().filter(v => v.lang && v.lang.toLowerCase().startsWith("de"));
@@ -587,10 +605,19 @@ const DATA = [{"id":1,"title":"Omgang met mensen","icon":"👋","items":[{"nl":"
     return de.sort((a, b) => score(b) - score(a))[0];
   }
   function speak(text) {
+    const clean = sayKey(text);
+    const clip = window.AUDIO[clean];
+    if (clip) {
+      try { if ("speechSynthesis" in window && speechSynthesis.speaking) speechSynthesis.cancel(); } catch {}
+      player.pause(); player.src = clip; player.currentTime = 0;
+      const p = player.play(); if (p) p.catch(() => {});
+      return;
+    }
     if (!("speechSynthesis" in window)) return;
     try {
-      speechSynthesis.cancel();
-      const clean = text.replace(/\(.*?\)/g, "").replace(/…|\.\.\./g, "").replace(/\s*\+\s*\w+/g, "").trim();
+      // cancel() vlak voor speak() laat sommige browsers stilvallen; alleen als er nog iets loopt
+      if (speechSynthesis.speaking || speechSynthesis.pending) speechSynthesis.cancel();
+      speechSynthesis.resume();
       const u = new SpeechSynthesisUtterance(clean);
       u.lang = "de-DE"; u.rate = 0.9;
       const v = bestVoice(); if (v) u.voice = v;
@@ -627,6 +654,7 @@ const DATA = [{"id":1,"title":"Omgang met mensen","icon":"👋","items":[{"nl":"
     const term = fold($("q").value);
     const rows = term ? items.filter(i => fold(i.de + " " + i.nl + " " + (i.imp || "") + " " + (i.pp || "")).includes(term)) : items.filter(i => i.cat === listCat);
     $("chips").style.opacity = term ? .45 : 1;
+    loadAudio(term ? [...new Set(rows.slice(0, 400).map(r => r.cat))] : [listCat]);
     $("listCount").textContent = `${rows.length} ${rows.length === 1 ? "item" : "items"}`;
     $("listUl").innerHTML = rows.slice(0, 400).map(m => itemRow(m)).join("") || `<li><div class="nl">Niets gevonden voor “${esc($("q").value)}”.</div></li>`;
   }
